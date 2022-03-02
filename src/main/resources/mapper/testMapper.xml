@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--
+namespace:命名空间,指定为接口的全类名
+selectUserById：唯一标识
+resultType：返回值类型
+-->
+<mapper namespace="hnsjb.videoRBPmake.dao.testMapper">
+    <typeAliases>
+        <typeAlias type="hnsjb.videoRBPmake.dao.memory" alias="memory" />
+    </typeAliases>
+    <!-- 根据id获取模型 -->
+    <select id="findById2" resultType="test">
+        select * from test where id = #{id}
+    </select>
+    <!-- 列表 -->
+    <sql id="listQ">
+        <where>
+            <if test="name!=null">
+                and name like "%"#{name}"%"
+            </if>
+            <if test="mobile!=null">
+                and mobile like "%"#{mobile}"%"
+            </if>
+            <if test="role_id!=null">
+                and JSON_OVERLAPS(role_ids, '${role_id}')
+            </if>
+        </where>
+    </sql>
+    <select id="list" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+        select id,name,mobile,role_ids,role_names,created_at,updated_at from admin
+        <include refid="listQ"></include>
+        limit #{offset},#{limit}
+    </select>
+    <select id="listCount" parameterType="java.util.HashMap" resultType="java.lang.Integer">
+        select count(*) from admin
+        <include refid="listQ"></include>
+    </select>
+    <!-- 新增 -->
+    <insert id="add" parameterType="lluck42.springboot2.dao.Admin" useGeneratedKeys="true">
+        insert INTO admin(name,mobile,password,role_ids,role_names,token)
+            values 
+        (#{name},#{mobile},#{password},#{role_ids},#{role_names},#{token})
+    </insert>
+    <!-- 修改 -->
+    <update id="update" parameterType="lluck42.springboot2.dao.Admin">
+        UPDATE admin SET
+        <trim suffixOverrides=",">
+            <if test="name!=null">name=#{name},</if>
+            <if test="mobile!=null">mobile=#{mobile},</if>
+            <if test="password!=null">password=#{password},</if>
+            <if test="role_ids!=null">role_ids=#{role_ids},</if>
+            <if test="role_names!=null">role_names=#{role_names},</if>
+            <if test="token!=null">token=#{token},</if>
+        </trim>
+        where id=#{id}
+    </update>
+    <!-- 删除 -->
+    <delete id="delete" parameterType="lluck42.springboot2.dao.Admin">
+        delete from admin where id=#{id}
+    </delete>
+    <!-- 登陆 -->
+    <select id="login" parameterType="java.util.HashMap" resultType="lluck42.springboot2.dao.Admin">
+        select * from admin where password = #{password} and (name=#{name} or mobile=#{name})
+    </select>
+</mapper>
