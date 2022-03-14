@@ -10,6 +10,7 @@ import org.apache.ibatis.annotations.Select;
 
 @Mapper
 public interface adminMapper {
+
     @Select("SELECT * FROM admin WHERE id = #{id}")
     admin findById(@Param("id") int id);
 
@@ -20,4 +21,7 @@ public interface adminMapper {
 
     @Select("SELECT id,name,token FROM admin WHERE name = #{name} and password = #{password}")
     admin login(@Param("name") String name, @Param("password") String password);
+
+    @Select("SELECT * FROM admin WHERE token = #{token}")
+    admin info(@Param("token") String token);
 }
