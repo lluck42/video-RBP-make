@@ -1,12 +1,11 @@
 package hnsjb.videoRBPmake.controller.admin;
 
-import java.util.HashMap;
+import java.awt.image.BufferedImage;
 import java.util.Map;
 
 import javax.imageio.ImageIO;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.session.Session;
 import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,11 +16,8 @@ import hnsjb.videoRBPmake.dao.admin.admin;
 import hnsjb.videoRBPmake.dao.admin.adminMapper;
 import hnsjb.videoRBPmake.tools.verifyCode;
 import jakarta.servlet.ServletOutputStream;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-
-import java.awt.image.BufferedImage;
 
 
 @RestController
@@ -40,7 +36,7 @@ public class login extends base {
 
         String code2 = (String)req.get("code");
 
-        if(!code2.equals(code) || code2 == null){
+        if(code2 == null || !code2.equals(code)){
             throw new RuntimeException("验证码不正确");
         }
         
@@ -50,6 +46,8 @@ public class login extends base {
         String password = (String)req.get("password");
         // md5
         password = DigestUtils.md5DigestAsHex(password.getBytes());
+
+        // System.out.println(password);
 
         admin one = adminMapper.login(name, password);
 
