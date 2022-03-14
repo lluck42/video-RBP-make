@@ -63,6 +63,8 @@ public class login extends base {
     // 验证码
     @RequestMapping(value="verifyImage")
     public void verifyImage(HttpSession session, HttpServletResponse response) {
+        response.setHeader("Content-type", "image/png");
+
         //生成验证码
         String code = verifyCode.getSecurityCode();
         //将验证码放入session

@@ -32,6 +32,13 @@ public class filter implements Filter{
         response.setCharacterEncoding("UTF-8");
         response.setHeader("Content-type", "text/html;charset=UTF-8");
         
+        
+        String uri = request.getRequestURI();
+        
+        if(uri.equals("/login/login") || uri.equals("/login/verifyImage")){
+            filterChain.doFilter(request, response);
+            return;
+        }
         // admin aa = new admin();
         // aa.id = 12;
         
