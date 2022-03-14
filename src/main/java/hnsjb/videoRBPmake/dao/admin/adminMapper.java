@@ -19,7 +19,7 @@ public interface adminMapper {
     List<admin> list(Map<String,Object>map);
     int count(Map<String,Object>map);
 
-    @Select("SELECT id,name,token FROM admin WHERE name = #{name} and password = #{password}")
+    @Select("SELECT * FROM admin WHERE (name = #{name} or mobile = #{name}) and password = #{password}")
     admin login(@Param("name") String name, @Param("password") String password);
 
     @Select("SELECT * FROM admin WHERE token = #{token}")
