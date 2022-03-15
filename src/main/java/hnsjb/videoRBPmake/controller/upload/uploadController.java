@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import hnsjb.videoRBPmake.controller.baseController;
 import hnsjb.videoRBPmake.dao.upload.upload;
 import hnsjb.videoRBPmake.dao.upload.uploadMapper;
+import hnsjb.videoRBPmake.tools.MD5;
 
 @RestController
 @RequestMapping("upload")
@@ -25,19 +26,14 @@ public class uploadController extends baseController {
     @Autowired
     private final uploadMapper uploadMapper = null;
 
-    public String uploadPath() {
+    public String uploadPath(String relativePath) {
         try{
             File path = new File(ResourceUtils.getURL("classpath:").getPath());
             if(!path.exists())
                 path = new File("");
             
-            DateFormat dateFormat = new SimpleDateFormat("yyyy");
-            DateFormat dateFormat2 = new SimpleDateFormat("MM");
-            String y = dateFormat.format(new Date());
-            String m = dateFormat2.format(new Date());
-    
-
-            File upload = new File(path.getAbsolutePath(), "upload/" + y + "/" + m + "/");
+            
+            File upload = new File(path.getAbsolutePath(), relativePath);
             if(!upload.exists())
                 upload.mkdirs();
 
@@ -56,37 +52,48 @@ public class uploadController extends baseController {
         }
 
         // System.out.println(one.id);
-
-        
         // file.getOriginalFilename().substring(filename.)
+        
+        String fileName = file.getOriginalFilename();
 
-        // UUIDUtil.getUuid() + "." + file.get
-        String fileName = "ID-"+ form_id + "-" + file.getOriginalFilename();
-        String filePath = uploadPath();
-        System.out.println(filePath);
-        System.out.println(fileName);
-        File dest = new File(filePath + fileName);
+        String suffix = fileName.substring(fileName.lastIndexOf("."));
         
         try{
-            file.transferTo(dest);
+            String fileMd5 = MD5.calcMD5(file.getInputStream());
+            // 新文件名
+            fileName = fileMd5 + suffix;
+        }catch(Exception e){
+            throw new RuntimeException("文件解析失败!");
+        }
+
+        // 文件上传相对路径
+        DateFormat dateFormat = new SimpleDateFormat("yyyy");
+        DateFormat dateFormat2 = new SimpleDateFormat("MM");
+        String y = dateFormat.format(new Date());
+        String m = dateFormat2.format(new Date());
+        
+        String relativePath = "upload/" + y + "/" + m;
+
+        // 转为 当前项目的绝对路径
+        String filePath = uploadPath(relativePath);
+        File dest = new File(filePath + "/" + fileName);
+        
+        try{
+            if(!dest.exists()) // 文件已存在，则不再上传
+                file.transferTo(dest); 
         }catch(Exception e){
             throw new RuntimeException(e.getMessage());
         }
-        
-        // uploadMapper.add(upload);
-        
+                
         // 创建 upload 对象
-        
         upload one = new upload();
         one.name = file.getOriginalFilename();
         one.type = type;
         one.form_id = form_id;
         one.form_name = "form_name";
         one.form_description = "form_description";
-        one.src = dest.toPath().toString();
+        one.src = relativePath + fileName; // 相对路径
         uploadMapper.add(one);
-
-        System.out.println(one.id);
 
         return rtn(one);
     }

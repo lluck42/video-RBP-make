@@ -59,9 +59,8 @@ public class loginController extends baseController {
             throw new RuntimeException("登陆参数错误：type！");
         }
 
-        if(one==null){
+        if(one==null)
             throw new RuntimeException("账号密码错误");
-        }
         
         return rtn(one);
     }
