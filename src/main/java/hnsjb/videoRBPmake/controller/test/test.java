@@ -1,27 +1,31 @@
 package hnsjb.videoRBPmake.controller.test;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import hnsjb.videoRBPmake.controller.base;
+import hnsjb.videoRBPmake.controller.baseController;
 import hnsjb.videoRBPmake.dao.testMapper;
 
 @RestController
 @RequestMapping("/test")
-public class test extends base {
+public class test extends baseController {
 
     @Autowired
     private final testMapper testMapper = null;
 
-    @RequestMapping("/test2")
+    @RequestMapping("/test")
     public Rtn listArticles(String title, Integer pageSize, Integer pageNum) {
+        String t = "hnsjb123";
+        t = DigestUtils.md5DigestAsHex(t.getBytes());
 
-        return rtn(this.testMapper.findById(1));
+        return rtn(t);
     }
 
     @RequestMapping("/list")

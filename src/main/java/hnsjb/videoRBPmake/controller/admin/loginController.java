@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import hnsjb.videoRBPmake.controller.base;
+import hnsjb.videoRBPmake.controller.baseController;
 import hnsjb.videoRBPmake.dao.admin.admin;
 import hnsjb.videoRBPmake.dao.admin.adminMapper;
 import hnsjb.videoRBPmake.tools.verifyCode;
@@ -22,7 +22,7 @@ import jakarta.servlet.http.HttpSession;
 
 @RestController
 @RequestMapping("/login")
-public class login extends base {
+public class loginController extends baseController {
     @Autowired
     private final adminMapper adminMapper = null;
 
