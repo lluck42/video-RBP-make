@@ -15,7 +15,7 @@ public interface uploadMapper {
     int add(upload one);
 
     @Select("SELECT * FROM upload WHERE id = #{id} limit 1")
-    upload first(@Param("token") String token);
+    upload first(@Param("id") int id);
 
     @Delete("delete from upload where id = #{id}")
     int delete(upload one);

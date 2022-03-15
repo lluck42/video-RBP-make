@@ -100,8 +100,7 @@ public class uploadController extends baseController {
 
     @RequestMapping("delete")
     public Rtn listArticles( @RequestBody(required = false) HashMap<String,Object> req) {
-
-
+        // 删除暂时不做 留存文件 跟数据库
         return rtn();
     }
 
