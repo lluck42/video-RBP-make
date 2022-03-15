@@ -8,6 +8,7 @@ import lombok.Data;
 public class upload {
     public int id;
     public String name;
+    public String type;
     public String src;
     public int form_id;
     public String form_name;

@@ -40,6 +40,8 @@ public class loginController extends baseController {
             throw new RuntimeException("验证码不正确");
         }
         
+        // type name mobile 二选一
+        String type = (String)req.get("type");
         // name
         String name = (String)req.get("name");
         // password
@@ -48,8 +50,14 @@ public class loginController extends baseController {
         password = DigestUtils.md5DigestAsHex(password.getBytes());
 
         // System.out.println(password);
-
-        admin one = adminMapper.login(name, password);
+        admin one;
+        if(type.equals("name")){
+            one = adminMapper.nameLogin(name, password);
+        }else if(type.equals("mobile")){
+            one = adminMapper.mobileLogin(name, password);
+        }else{
+            throw new RuntimeException("登陆参数错误：type！");
+        }
 
         if(one==null){
             throw new RuntimeException("账号密码错误");
@@ -67,7 +75,7 @@ public class loginController extends baseController {
         String code = verifyCode.getSecurityCode();
         //将验证码放入session
         session.setAttribute("code",code);
-
+        System.out.println("code:" + code);
         //生成图片
         BufferedImage image = verifyCode.createImage(code);
         try{
