@@ -35,7 +35,7 @@ public class filter implements Filter{
         
         String uri = request.getRequestURI();
         
-        if(uri.equals("/login/login") || uri.equals("/login/verifyImage")){
+        if(uri.equals("/login/login") || uri.equals("/login/verifyImage") || uri.equals("/test/test")){
             filterChain.doFilter(request, response);
             return;
         }

@@ -9,6 +9,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 
+import hnsjb.videoRBPmake.tools.mail;
+
 @SpringBootTest
 class VideoRbpMakeApplicationTests {
 
@@ -43,5 +45,20 @@ class VideoRbpMakeApplicationTests {
         // 发送邮件
         javaMailSender.send(message);
 	}
+	@Autowired
+	mail mail;
 
+	@Test
+	void sendMail2(){
+		mail.tes();
+		// mail one = new mail();
+		// one.sendMail("asdfqe1asf");
+		
+		try{
+			Thread.sleep(11000);
+		}catch(Exception e){
+
+		}
+		System.out.println("========22======");
+	}
 }

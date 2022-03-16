@@ -1,17 +1,22 @@
 package hnsjb.videoRBPmake.tools;
 
 import java.util.Date;
+import java.util.concurrent.Future;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.stereotype.Service;
 
+@Service
 public class mail {
 
     @Autowired
-    static JavaMailSender javaMailSender;   
-
-    public static void sendMail(){
+    public JavaMailSender javaMailSender;
+    
+    @Async
+    public void sendMail(String msg){
         // 构建一个邮件对象
         SimpleMailMessage message = new SimpleMailMessage();
         // 设置邮件主题
@@ -25,13 +30,25 @@ public class mail {
         // message.setCc("12****32*qq.com");
         // 设置隐秘抄送人，可以有多个
         // message.setBcc("7******9@qq.com");
-        // 设置邮件发送日期
+        // 设置邮件发送日期 eternal
 		
         message.setSentDate(new Date());
         // 设置邮件的正文
-        message.setText("这2是测试邮件\n的正文!!!");
+        message.setText(msg);
         // 发送邮件
         javaMailSender.send(message);
+    }
+
+    @Async
+    public void tes(){
+        try{
+            System.out.println("开始sleep！22");
+            Thread.sleep(10000);
+        }catch(Exception e){
+            throw new RuntimeException("aaabbbccc!!!");
+        }
+
+        System.out.println("完毕sleep！22");
 
     }
 }
