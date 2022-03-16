@@ -20,7 +20,7 @@ import jakarta.servlet.http.HttpServletResponse;
 public class filter implements Filter{
 
     @Autowired
-    private final adminMapper adminMapper = null;
+    private adminMapper adminMapper;
 
     @Override
     public void  doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException{

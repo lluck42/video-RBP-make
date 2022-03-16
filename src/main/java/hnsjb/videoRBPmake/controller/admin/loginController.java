@@ -24,7 +24,7 @@ import jakarta.servlet.http.HttpSession;
 @RequestMapping("/login")
 public class loginController extends baseController {
     @Autowired
-    private final adminMapper adminMapper = null;
+    private adminMapper adminMapper;
 
     @RequestMapping(value="login")
     public Rtn login2(HttpSession session, @RequestBody(required = false) Map<String,Object> req) {

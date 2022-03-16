@@ -1,27 +1,17 @@
-package hnsjb.videoRBPmake;
-
+package hnsjb.videoRBPmake.tools;
 
 import java.util.Date;
 
-import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 
-@SpringBootTest
-class VideoRbpMakeApplicationTests {
+public class mail {
 
-	@Test
-	void contextLoads() {
-			
-	}
-	
     @Autowired
-    JavaMailSender javaMailSender;   
+    static JavaMailSender javaMailSender;   
 
-	@Test
-	void sendMail() {
+    public static void sendMail(){
         // 构建一个邮件对象
         SimpleMailMessage message = new SimpleMailMessage();
         // 设置邮件主题
@@ -42,6 +32,6 @@ class VideoRbpMakeApplicationTests {
         message.setText("这2是测试邮件\n的正文!!!");
         // 发送邮件
         javaMailSender.send(message);
-	}
 
+    }
 }

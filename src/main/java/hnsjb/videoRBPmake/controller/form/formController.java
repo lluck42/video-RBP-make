@@ -15,7 +15,7 @@ import hnsjb.videoRBPmake.dao.form.formMapper;
 @RequestMapping("form")
 public class formController extends baseController {
     @Autowired
-    private final formMapper formMapper = null;
+    private formMapper formMapper;
 
     @RequestMapping("info")
     public Rtn info(@RequestBody form form) {

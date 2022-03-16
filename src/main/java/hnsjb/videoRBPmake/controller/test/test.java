@@ -18,7 +18,7 @@ import hnsjb.videoRBPmake.dao.testMapper;
 public class test extends baseController {
 
     @Autowired
-    private final testMapper testMapper = null;
+    private testMapper testMapper;
 
     @RequestMapping("/test")
     public Rtn listArticles(String title, Integer pageSize, Integer pageNum) {

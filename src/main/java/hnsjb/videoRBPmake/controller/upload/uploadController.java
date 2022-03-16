@@ -26,9 +26,9 @@ import hnsjb.videoRBPmake.tools.MD5;
 public class uploadController extends baseController {
 
     @Autowired
-    private final uploadMapper uploadMapper = null;
+    private uploadMapper uploadMapper;
     @Autowired
-    private final formMapper formMapper = null;
+    private formMapper formMapper;
 
     public String uploadPath(String relativePath) {
         try{
