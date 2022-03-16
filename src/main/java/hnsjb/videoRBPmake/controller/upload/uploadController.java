@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import hnsjb.videoRBPmake.controller.baseController;
+import hnsjb.videoRBPmake.dao.form.form;
+import hnsjb.videoRBPmake.dao.form.formMapper;
 import hnsjb.videoRBPmake.dao.upload.upload;
 import hnsjb.videoRBPmake.dao.upload.uploadMapper;
 import hnsjb.videoRBPmake.tools.MD5;
@@ -25,6 +27,8 @@ public class uploadController extends baseController {
 
     @Autowired
     private final uploadMapper uploadMapper = null;
+    @Autowired
+    private final formMapper formMapper = null;
 
     public String uploadPath(String relativePath) {
         try{
@@ -51,11 +55,14 @@ public class uploadController extends baseController {
             throw new RuntimeException("上传失败，请选择文件！");
         }
 
+        form form = formMapper.first(form_id);
+        if(form == null)
+            throw new RuntimeException("没有该记录 form_id:"+form_id);
         // System.out.println(one.id);
         // file.getOriginalFilename().substring(filename.)
         
         String fileName = file.getOriginalFilename();
-
+        
         String suffix = fileName.substring(fileName.lastIndexOf("."));
         
         try{
@@ -90,8 +97,8 @@ public class uploadController extends baseController {
         one.name = file.getOriginalFilename();
         one.type = type;
         one.form_id = form_id;
-        one.form_name = "form_name";
-        one.form_description = "form_description";
+        one.form_name = form.name;
+        one.form_description = form.description;
         one.src = relativePath + fileName; // 相对路径
         uploadMapper.add(one);
 
