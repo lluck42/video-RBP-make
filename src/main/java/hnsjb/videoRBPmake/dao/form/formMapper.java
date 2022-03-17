@@ -9,6 +9,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 
 @Mapper
@@ -24,7 +25,9 @@ public interface formMapper {
     @Delete("delete from form where id = #{id}")
     int delete(form one);
 
+    @Update("UPDATE form SET status=#{status} where id=#{id}")
+    int setStatus(form one);
+
     List<form> list(HashMap<String,Object>map);
     int count(HashMap<String,Object>map);
-
 }

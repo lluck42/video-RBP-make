@@ -1,6 +1,8 @@
 package hnsjb.videoRBPmake.controller.form;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -35,9 +37,82 @@ public class formController extends baseController {
         return rtn();
     }
 
+    @RequestMapping("confirm")
+    public Rtn confirm(@RequestBody form form) {
+        
+        form one = formMapper.first(form.id);
+        if(one==null || !one.status.equals("创建"))
+            throw new RuntimeException("发生错误，请刷新后尝试！");
+    
+        one.status = "确认";
+        int num = formMapper.setStatus(one);
+        if(num == 0)
+            throw new RuntimeException("确认失败！");
+
+        return rtn();
+    }
+
+    @RequestMapping("submit")
+    public Rtn submit(@RequestBody form form) {
+
+        List<String> list = new ArrayList<String>();
+        list.add("确认");
+        list.add("驳回");
+        
+        form one = formMapper.first(form.id);
+        if(!list.contains(one.status))
+            throw new RuntimeException("发生错误，请刷新后尝试！");
+    
+        one.status = "审核";
+        int num = formMapper.setStatus(one);
+        if(num == 0)
+            throw new RuntimeException("确认失败！");
+
+        return rtn();
+    }
+
+
+    @RequestMapping("pass")
+    public Rtn pass(@RequestBody form form) {
+        
+        form one = formMapper.first(form.id);
+        if(one==null || !one.status.equals("审核"))
+            throw new RuntimeException("发生错误，请刷新后尝试！");
+    
+        one.status = "通过";
+        int num = formMapper.setStatus(one);
+        if(num == 0)
+            throw new RuntimeException("确认失败！");
+
+        return rtn();
+    }
+
+
+    @RequestMapping("reject")
+    public Rtn reject(@RequestBody form form) {
+        
+        form one = formMapper.first(form.id);
+        if(one==null || !one.status.equals("审核"))
+            throw new RuntimeException("发生错误，请刷新后尝试！");
+    
+        one.status = "驳回";
+        int num = formMapper.setStatus(one);
+        if(num == 0)
+            throw new RuntimeException("确认失败！");
+
+        return rtn();
+    }
+
     @RequestMapping("delete")
     public Rtn delete(@RequestBody form form) {
         
+        form one = formMapper.first(form.id);
+        if(one == null)
+            throw new RuntimeException("该记录不存在");
+        
+        if(!one.status.equals("创建"))
+            throw new RuntimeException("已确认单，不可删除！");
+            
         int num = formMapper.delete(form);
         if(num == 0)
             throw new RuntimeException("该记录不存在");

@@ -8,6 +8,8 @@ import org.springframework.context.annotation.Configuration;
 
 import hnsjb.videoRBPmake.dao.admin.admin;
 import hnsjb.videoRBPmake.dao.admin.adminMapper;
+import hnsjb.videoRBPmake.dao.admin.permission;
+import hnsjb.videoRBPmake.dao.admin.permissionMapper;
 import jakarta.servlet.Filter;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -21,6 +23,10 @@ public class filter implements Filter{
 
     @Autowired
     private adminMapper adminMapper;
+
+    @Autowired
+    private permissionMapper permissionMapper;
+
 
     @Override
     public void  doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException{
@@ -65,6 +71,17 @@ public class filter implements Filter{
         }
         
         request.setAttribute("info", one);
+
+        // permission 验证
+        permission permission = permissionMapper.check(one.role, uri);
+        if(permission == null){
+            response.setStatus(401);
+            PrintWriter w = response.getWriter();
+            w.write("{\"status\":-1,\"msg\":\"permission 没有该权限！\"}");
+            w.close();
+            return;
+        }
+        // uri
 
         // String uri = request.getRequestURI();
         // System.out.println(uri);
