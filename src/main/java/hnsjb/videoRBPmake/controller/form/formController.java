@@ -166,9 +166,7 @@ public class formController extends baseController {
         map.put("offset", offset);
         map.put("limit", limit);
         map.put("admin_id", 1);
-
-        System.out.println(map);
-
+        
         // rtn map
         HashMap<String,Object> data = new HashMap<String,Object>();
         

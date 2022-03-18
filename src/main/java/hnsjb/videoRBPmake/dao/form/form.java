@@ -11,4 +11,6 @@ public class form {
     public String description;
     public String files;
     public String status;
+    public String created_at;
+    public String updated_at;
 }
