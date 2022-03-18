@@ -41,12 +41,11 @@ public class dialogController extends baseController {
     @RequestMapping("/oneFormList")
     public Rtn oneFormList(@RequestBody HashMap<String,Object> req) {
 
-        // rtn map
-        HashMap<String,Object> data = new HashMap<String,Object>();
+        int form_id = (int)req.get("form_id");
+
+        Object rtn = dialogMapper.oneFormList(form_id);
         
-        data.put("count", dialogMapper.oneFormList(1));
-        
-        return rtn(data);
+        return rtn(rtn);
     }
 
 
