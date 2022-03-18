@@ -28,6 +28,23 @@ public class formController extends baseController {
         return rtn(one);
     }
 
+    @RequestMapping("setFiles")
+    public Rtn setFiles(HttpServletRequest request, @RequestBody form form) {
+
+        form one = formMapper.first(form.id);
+        // admin info = (admin)request.getAttribute("info");
+
+        if(one==null)
+            throw new RuntimeException("该表单不存在！");
+
+        int sum = formMapper.setFiles(form);
+
+        if(sum == 0)
+            throw new RuntimeException("设置失败！");
+
+        return rtn();
+    }
+
     @RequestMapping("add")
     public Rtn add(HttpServletRequest request, @RequestBody form form) {
         

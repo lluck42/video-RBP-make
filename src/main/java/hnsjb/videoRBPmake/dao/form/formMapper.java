@@ -15,7 +15,7 @@ import org.apache.ibatis.annotations.Update;
 @Mapper
 public interface formMapper {
     
-    @Insert("insert into form(admin_id,admin_name,name,description,files,status) values(#{admin_id},#{admin_name},#{name},#{description},#{files},#{status})")
+    @Insert("insert into form(admin_id,admin_name,name,description,status) values(#{admin_id},#{admin_name},#{name},#{description},#{status})")
     @Options(useGeneratedKeys=true, keyProperty="id")
     int add(form one);
 
@@ -27,6 +27,9 @@ public interface formMapper {
 
     @Update("UPDATE form SET status=#{status} where id=#{id}")
     int setStatus(form one);
+
+    @Update("UPDATE form SET files=#{files} where id=#{id}")
+    int setFiles(form one);
 
     List<form> list(HashMap<String,Object>map);
     int count(HashMap<String,Object>map);
