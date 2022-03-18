@@ -1,12 +1,12 @@
 package hnsjb.videoRBPmake.dao.admin;
 
-import org.apache.ibatis.annotations.Mapper;
-
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 @Mapper
 public interface adminMapper {
@@ -27,4 +27,7 @@ public interface adminMapper {
 
     @Select("SELECT * FROM admin WHERE token = #{token}")
     admin info(@Param("token") String token);
+
+    @Update("UPDATE admin SET token=#{token} where id=#{id}")
+    int setToken(admin one);
 }

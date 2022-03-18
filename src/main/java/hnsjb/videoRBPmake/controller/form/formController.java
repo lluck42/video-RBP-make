@@ -10,8 +10,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import hnsjb.videoRBPmake.controller.baseController;
+import hnsjb.videoRBPmake.dao.admin.admin;
 import hnsjb.videoRBPmake.dao.form.form;
 import hnsjb.videoRBPmake.dao.form.formMapper;
+import jakarta.servlet.http.HttpServletRequest;
 
 @RestController
 @RequestMapping("form")
@@ -27,9 +29,14 @@ public class formController extends baseController {
     }
 
     @RequestMapping("add")
-    public Rtn add(@RequestBody form form) {
+    public Rtn add(HttpServletRequest request, @RequestBody form form) {
         
         form.status = "创建";
+        // new admin();
+        admin one = (admin)request.getAttribute("info");
+        form.admin_id = one.id;
+        form.admin_name = one.name;
+
         int num = formMapper.add(form);
         if(num == 0)
             throw new RuntimeException("添加记录失败");
@@ -134,6 +141,33 @@ public class formController extends baseController {
         map.put("offset", offset);
         map.put("limit", limit);
         map.put("name", name);
+
+        // rtn map
+        HashMap<String,Object> data = new HashMap<String,Object>();
+        
+        data.put("count", formMapper.count(map));
+        data.put("list", formMapper.list(map));
+        
+        return rtn(data);
+    }
+
+    // 用于 cp 查看和自己相关的 form
+    @RequestMapping("/myList")
+    public Rtn mylist(@RequestBody HashMap<String,Object> req) {
+
+        int page = (int)req.get("page");
+        int limit = (int)req.get("limit");
+        String name = (String)req.get("name");
+
+        // 计算 offset
+        int offset = (page - 1) * limit;
+        
+        HashMap<String,Object> map = new HashMap<String,Object>();
+        map.put("offset", offset);
+        map.put("limit", limit);
+        map.put("admin_id", 1);
+
+        System.out.println(map);
 
         // rtn map
         HashMap<String,Object> data = new HashMap<String,Object>();

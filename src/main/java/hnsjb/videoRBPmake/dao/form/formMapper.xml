@@ -22,6 +22,9 @@ resultType：返回值类型
             <if test="name!=null">
                 and name like "%"#{name}"%"
             </if>
+            <if test="admin_id!=null">
+                and admin_id=#{admin_id}
+            </if>
         </where>
     </sql>
     <select id="list" parameterType="java.util.HashMap" resultType="hnsjb.videoRBPmake.dao.form.form">

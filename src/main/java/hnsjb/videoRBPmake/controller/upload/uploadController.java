@@ -86,7 +86,7 @@ public class uploadController extends baseController {
         File dest = new File(filePath + "/" + fileName);
         
         try{
-            if(!dest.exists()) // 文件已存在，则不再上传
+            if(!dest.exists()) // 文件已存在，则不再上传，节省磁盘空间
                 file.transferTo(dest); 
         }catch(Exception e){
             throw new RuntimeException(e.getMessage());
@@ -105,10 +105,30 @@ public class uploadController extends baseController {
         return rtn(one);
     }
 
-    @RequestMapping("delete")
-    public Rtn listArticles( @RequestBody(required = false) HashMap<String,Object> req) {
-        // 删除暂时不做 留存文件 跟数据库
-        return rtn();
+    @RequestMapping("list")
+    public Rtn list( @RequestBody(required = false) HashMap<String,Object> req) {
+
+        int page = (int)req.get("page");
+        int limit = (int)req.get("limit");
+        String search = (String)req.get("search");
+        String type = (String)req.get("type");
+
+        // 计算 offset
+        int offset = (page - 1) * limit;
+        
+        HashMap<String,Object> map = new HashMap<String,Object>();
+        map.put("offset", offset);
+        map.put("limit", limit);
+        map.put("search", search);
+        map.put("type", type);
+        
+        // rtn map
+        HashMap<String,Object> data = new HashMap<String,Object>();
+        
+        data.put("count", uploadMapper.count(map));
+        data.put("list", uploadMapper.list(map));
+        
+        return rtn(data);
     }
 
 }

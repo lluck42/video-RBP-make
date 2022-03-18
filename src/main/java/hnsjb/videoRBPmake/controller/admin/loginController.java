@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.RestController;
 import hnsjb.videoRBPmake.controller.baseController;
 import hnsjb.videoRBPmake.dao.admin.admin;
 import hnsjb.videoRBPmake.dao.admin.adminMapper;
+import hnsjb.videoRBPmake.tools.MD5;
 import hnsjb.videoRBPmake.tools.verifyCode;
 import jakarta.servlet.ServletOutputStream;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
@@ -64,6 +66,25 @@ public class loginController extends baseController {
         
         return rtn(one);
     }
+
+    // 刷新token凭证
+    @RequestMapping(value="logout")
+    public Rtn logout(HttpServletRequest request) {
+
+        admin one = (admin)request.getAttribute("info");
+
+        String str = one.id + "-" + System.currentTimeMillis();
+
+        
+        one.token = MD5.toHexString(str.getBytes());
+
+        int sum = adminMapper.setToken(one);
+        if(sum == 0)
+            throw new RuntimeException("更新token失败");
+        // System.out.println(str);
+        return rtn();
+    }
+
 
     // 验证码
     @RequestMapping(value="verifyImage")

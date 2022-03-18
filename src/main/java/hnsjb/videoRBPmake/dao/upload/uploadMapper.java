@@ -1,5 +1,8 @@
 package hnsjb.videoRBPmake.dao.upload;
 
+import java.util.HashMap;
+import java.util.List;
+
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
@@ -19,4 +22,7 @@ public interface uploadMapper {
 
     @Delete("delete from upload where id = #{id}")
     int delete(upload one);
+
+    List<upload> list(HashMap<String,Object>map);
+    int count(HashMap<String,Object>map);
 }   
