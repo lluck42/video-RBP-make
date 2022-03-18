@@ -80,12 +80,16 @@ public class formController extends baseController {
 
 
     @RequestMapping("pass")
-    public Rtn pass(@RequestBody form form) {
+    public Rtn pass(HttpServletRequest request, @RequestBody form form) {
         
         form one = formMapper.first(form.id);
         if(one==null || !one.status.equals("审核"))
             throw new RuntimeException("发生错误，请刷新后尝试！");
-    
+
+        admin info = (admin)request.getAttribute("info");
+        if(one.admin_id != info.id)
+            throw new RuntimeException("发生错误，没有该表单权限！");
+
         one.status = "通过";
         int num = formMapper.setStatus(one);
         if(num == 0)
@@ -96,11 +100,15 @@ public class formController extends baseController {
 
 
     @RequestMapping("reject")
-    public Rtn reject(@RequestBody form form) {
+    public Rtn reject(HttpServletRequest request, @RequestBody form form) {
         
         form one = formMapper.first(form.id);
         if(one==null || !one.status.equals("审核"))
             throw new RuntimeException("发生错误，请刷新后尝试！");
+
+        admin info = (admin)request.getAttribute("info");
+        if(one.admin_id != info.id)
+            throw new RuntimeException("发生错误，没有该表单权限！");
     
         one.status = "驳回";
         int num = formMapper.setStatus(one);

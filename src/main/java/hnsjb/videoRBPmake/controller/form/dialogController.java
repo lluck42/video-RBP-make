@@ -11,6 +11,8 @@ import hnsjb.videoRBPmake.controller.baseController;
 import hnsjb.videoRBPmake.dao.admin.admin;
 import hnsjb.videoRBPmake.dao.form.dialog;
 import hnsjb.videoRBPmake.dao.form.dialogMapper;
+import hnsjb.videoRBPmake.dao.form.form;
+import hnsjb.videoRBPmake.dao.form.formMapper;
 import jakarta.servlet.http.HttpServletRequest;
 
 @RestController
@@ -19,6 +21,9 @@ public class dialogController extends baseController {
 
     @Autowired
     private dialogMapper dialogMapper;
+    @Autowired
+    private formMapper formMapper;
+
 
     @RequestMapping("add")
     public Rtn add(HttpServletRequest request, @RequestBody dialog dialog) {
@@ -26,6 +31,15 @@ public class dialogController extends baseController {
         // dialog.status = "创建";
         // new admin();
         admin one = (admin)request.getAttribute("info");
+
+        if(one.role != "hnsjb"){
+            form form = formMapper.first(dialog.form_id);
+            if(form == null)
+                throw new RuntimeException("该记录不存在！form_id:"+dialog.form_id);
+            // one.id != dialog.
+            if(form == null || form.admin_id != one.id)
+                new RuntimeException("没有该表单权限!form_id:"+dialog.form_id);
+        }
 
         dialog.admin_id = one.id;
         dialog.admin_name = one.name;
