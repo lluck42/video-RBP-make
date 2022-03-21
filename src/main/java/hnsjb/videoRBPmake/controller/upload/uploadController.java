@@ -30,22 +30,17 @@ public class uploadController extends baseController {
     @Autowired
     private formMapper formMapper;
 
-    public String uploadPath(String relativePath) {
-        try{
-            File path = new File(ResourceUtils.getURL("classpath:").getPath());
-            if(!path.exists())
-                path = new File("");
-            
-            
-            File upload = new File(path.getAbsolutePath(), relativePath);
-            if(!upload.exists())
-                upload.mkdirs();
+    private String basePath = System.getProperty("user.dir");
 
-            return upload.getAbsolutePath();
+    public String uploadPath() {
 
-        }catch(Exception e){
-            throw new RuntimeException("获取uploadPath失败！");
-        }
+        // 文件上传相对路径
+        DateFormat dateFormat = new SimpleDateFormat("yyyy");
+        DateFormat dateFormat2 = new SimpleDateFormat("MM");
+        String y = dateFormat.format(new Date());
+        String m = dateFormat2.format(new Date());
+        
+        return "/uploads/" + y + "/" + m + "/";
     }
 
     @RequestMapping("add")
@@ -73,17 +68,11 @@ public class uploadController extends baseController {
             throw new RuntimeException("文件解析失败!");
         }
 
-        // 文件上传相对路径
-        DateFormat dateFormat = new SimpleDateFormat("yyyy");
-        DateFormat dateFormat2 = new SimpleDateFormat("MM");
-        String y = dateFormat.format(new Date());
-        String m = dateFormat2.format(new Date());
-        
-        String relativePath = "upload/" + y + "/" + m;
 
-        // 转为 当前项目的绝对路径
-        String filePath = uploadPath(relativePath);
-        File dest = new File(filePath + "/" + fileName);
+        //
+        String filePath = uploadPath();
+        
+        File dest = new File(basePath + filePath + fileName);
         
         try{
             if(!dest.exists()) // 文件已存在，则不再上传，节省磁盘空间
@@ -99,7 +88,7 @@ public class uploadController extends baseController {
         one.form_id = form_id;
         one.form_name = form.name;
         one.form_description = form.description;
-        one.src = relativePath + fileName; // 相对路径
+        one.src = filePath + fileName; // 相对路径
         uploadMapper.add(one);
 
         return rtn(one);
