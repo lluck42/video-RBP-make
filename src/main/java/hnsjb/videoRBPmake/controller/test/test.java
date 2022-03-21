@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -12,7 +13,10 @@ import org.springframework.web.bind.annotation.RestController;
 import hnsjb.videoRBPmake.controller.baseController;
 import hnsjb.videoRBPmake.dao.testMapper;
 import hnsjb.videoRBPmake.dao.admin.admin;
-import hnsjb.videoRBPmake.tools.mail;
+import hnsjb.videoRBPmake.dao.form.dialog;
+import hnsjb.videoRBPmake.dao.form.dialogMapper;
+import hnsjb.videoRBPmake.dao.form.form;
+import hnsjb.videoRBPmake.dao.form.formMapper;
 
 @RestController
 @RequestMapping("/test")
@@ -22,23 +26,30 @@ public class test extends baseController {
     private testMapper testMapper;
 
     @Autowired
-    private mail mail;
+    private formMapper formMapper;
+    
+    @Autowired
+    private dialogMapper dialogMapper;
+
 
     @RequestMapping("/test")
+    @Transactional
     public Rtn listArticles(String title, Integer pageSize, Integer pageNum) {
 
-        // mail.tes();
-        // mail.sendMail("您的表单已被通过 \n详情请点击 http://hnsjb.cn");
-        // mail mail = new mail();
-        mail.tes();
+        // 测试事务注解
+        form form = new form();
+        form.name = "测试事务";
+        formMapper.add(form);
+
+        dialog dialog = new dialog();
+        dialog.form_id = form.id;
+        dialog.msg = "测试事务";
+        dialogMapper.add(dialog);
         
-        // mail.tes();
-        // mail.sendMail("您的表单已被通过 \n详情请点击 http://hnsjb.cn");
+        if(true)
+            throw new RuntimeException("测试回滚");
 
-        String t = "hnsjb123";
-        t = DigestUtils.md5DigestAsHex(t.getBytes());
-
-        return rtn(t);
+        return rtn("测试事务");
     }
 
     @Autowired

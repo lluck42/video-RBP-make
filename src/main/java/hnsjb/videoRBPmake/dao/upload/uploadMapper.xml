@@ -11,10 +11,10 @@ resultType：返回值类型
     <!-- 列表 -->
     <sql id="query">
         <where>
-            <if test="search!=null">
+            <if test="search!=''">
                 and (name like "%"#{search}"%" or form_name like "%"#{search}"%" or form_description like "%"#{search}"%")
             </if>
-            <if test="type!=null">
+            <if test="type!=''">
                 and type=#{type}
             </if>
         </where>

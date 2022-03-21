@@ -19,13 +19,13 @@ resultType：返回值类型
     <!-- 列表 -->
     <sql id="query">
         <where>
-            <if test="search!=null">
+            <if test="search!=''">
                 and (name like "%"#{search}"%" or description like "%"#{search}"%")
             </if>
-            <if test="status!=null">
+            <if test="status!=''">
                 and status=#{status}
             </if>
-            <if test="admin_name!=null">
+            <if test="admin_name!=''">
                 and admin_name=#{admin_name}
             </if>
         </where>
