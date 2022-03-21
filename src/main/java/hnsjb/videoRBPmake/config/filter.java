@@ -41,12 +41,14 @@ public class filter implements Filter{
         
         String uri = request.getRequestURI();
         
-        if(uri.equals("/login/login") || uri.equals("/login/verifyImage") || uri.equals("/test/test")){
+        if(uri.equals("/login/login") || uri.equals("/login/verifyImage") || uri.equals("/test/test") || uri.substring(0,9).equals("/uploads/")){
             filterChain.doFilter(request, response);
             return;
         }
         // admin aa = new admin();
-        // aa.id = 12;
+        // aa.id = 12; /uploads
+        
+        
         
         String token = request.getHeader("Authorization");
         // Bearer 339bb87821d1ffd0147d56e39f45f24c
