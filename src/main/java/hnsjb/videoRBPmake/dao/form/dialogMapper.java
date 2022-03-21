@@ -13,7 +13,7 @@ import org.apache.ibatis.annotations.Select;
 @Mapper
 public interface dialogMapper {
     
-    @Insert("insert into form_dialog(form_id,admin_id,admin_name,msg) values(#{form_id},#{admin_id},#{admin_name},#{msg})")
+    @Insert("insert into form_dialog(form_id,admin_id,admin_name,admin_role,msg) values(#{form_id},#{admin_id},#{admin_name},#{admin_role},#{msg})")
     @Options(useGeneratedKeys=true, keyProperty="id")
     int add(dialog one);
 
@@ -23,6 +23,6 @@ public interface dialogMapper {
     @Delete("delete from form_dialog where id = #{id}")
     int delete(dialog one);
 
-    @Select("SELECT * FROM form_dialog WHERE form_id = #{form_id} order by id asc")
+    @Select("SELECT * FROM form_dialog WHERE form_id = #{form_id} order by id desc")
     List<dialog> oneFormList(@Param("form_id") int form_id);
 }

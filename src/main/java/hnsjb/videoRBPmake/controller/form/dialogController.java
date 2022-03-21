@@ -43,6 +43,7 @@ public class dialogController extends baseController {
 
         dialog.admin_id = one.id;
         dialog.admin_name = one.name;
+        dialog.admin_role = one.role;
 
         int num = dialogMapper.add(dialog);
         if(num == 0)

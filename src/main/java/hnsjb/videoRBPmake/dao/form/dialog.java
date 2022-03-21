@@ -8,6 +8,7 @@ public class dialog {
     public int form_id;
     public int admin_id;
     public String admin_name;
+    public String admin_role;
     public String msg;
     public String created_at;
 }
