@@ -68,13 +68,17 @@ public class uploadController extends baseController {
             throw new RuntimeException("文件解析失败!");
         }
 
-
-        //
+        // 获取上传文件路径
         String filePath = uploadPath();
         
-        File dest = new File(basePath + filePath + fileName);
+        // 文件夹不存在，则创建文件件
+        File path = new File(basePath + filePath);
+        if(!path.exists())
+            path.mkdirs();
         
         try{
+            File dest = new File(basePath + filePath + fileName);
+
             if(!dest.exists()) // 文件已存在，则不再上传，节省磁盘空间
                 file.transferTo(dest); 
         }catch(Exception e){
