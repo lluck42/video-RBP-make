@@ -157,7 +157,10 @@ public class formController extends baseController {
     public Rtn list(@RequestBody HashMap<String,Object> req) {
         int page = (int)req.get("page");
         int limit = (int)req.get("limit");
-        String name = (String)req.get("name");
+
+        String status = (String)req.get("status");
+        String admin_name = (String)req.get("admin_name");
+        String search = (String)req.get("search");
 
         // 计算 offset
         int offset = (page - 1) * limit;
@@ -165,7 +168,9 @@ public class formController extends baseController {
         HashMap<String,Object> map = new HashMap<String,Object>();
         map.put("offset", offset);
         map.put("limit", limit);
-        map.put("name", name);
+        map.put("status", status);
+        map.put("admin_name", admin_name);
+        map.put("search", search);
 
         // rtn map
         HashMap<String,Object> data = new HashMap<String,Object>();
