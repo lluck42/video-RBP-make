@@ -40,9 +40,14 @@ public class filter implements Filter{
 		HttpServletResponse response = (HttpServletResponse) servletResponse;
         response.setCharacterEncoding("UTF-8");
         response.setHeader("Content-type", "text/html;charset=UTF-8");
-        
+
         
         String uri = request.getRequestURI();
+
+        if(uri.equals("/")){
+            filterChain.doFilter(request, response);
+            return;
+        }
 
         String[] args = uri.split("/");
         
@@ -59,7 +64,8 @@ public class filter implements Filter{
                 return;
             }
         }
-                
+
+
         
         String token = request.getHeader("Authorization");
         // Bearer 339bb87821d1ffd0147d56e39f45f24c
