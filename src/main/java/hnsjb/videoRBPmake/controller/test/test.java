@@ -1,11 +1,11 @@
 package hnsjb.videoRBPmake.controller.test;
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -32,7 +32,7 @@ public class test extends baseController {
     private dialogMapper dialogMapper;
 
 
-    @RequestMapping("/test")
+    @RequestMapping("/test2")
     @Transactional
     public Rtn listArticles(String title, Integer pageSize, Integer pageNum) {
 
@@ -55,23 +55,17 @@ public class test extends baseController {
     @Autowired
     admin ta;
 
-    @RequestMapping("/test2")
+    @RequestMapping("/test")
     public Rtn listArticles2(String title, Integer pageSize, Integer pageNum) {
 
-        // mail.tes();
-        // mail.sendMail("您的表单已被通过 \n详情请点击 http://hnsjb.cn");
-        System.out.println(ta);
-        ta.id = 421;
-        System.out.println(System.identityHashCode(ta));
-        // mail mail = new mail();
-        // mail.tes();
-        // mail.tes();
-        // mail.sendMail("您的表单已被通过 \n详情请点击 http://hnsjb.cn");
+        LocalDateTime now = LocalDateTime.now();
 
-        String t = "hnsjb123";
-        t = DigestUtils.md5DigestAsHex(t.getBytes());
-
-        return rtn(t);
+        String dir = System.getProperty("user.dir");
+    
+        System.out.println(now);
+        System.out.println(dir);
+    
+        return rtn();
     }
 
 

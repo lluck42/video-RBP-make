@@ -2,6 +2,9 @@ package hnsjb.videoRBPmake.config;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -40,15 +43,23 @@ public class filter implements Filter{
         
         
         String uri = request.getRequestURI();
+
+        String[] args = uri.split("/");
         
-        if(uri.equals("/login/login") || uri.equals("/login/verifyImage") || uri.equals("/test/test") || uri.substring(0,9).equals("/uploads/")){
-            filterChain.doFilter(request, response);
-            return;
+        // 如果被包含 则不鉴权
+        List<String> li = new ArrayList<String>();
+        li.add("login");
+        li.add("test");
+        li.add("upload");
+        li.add("html");
+        
+        if(args.length >= 2){
+            if(li.contains(args[1])){
+                filterChain.doFilter(request, response);
+                return;
+            }
         }
-        // admin aa = new admin();
-        // aa.id = 12; /uploads
-        
-        
+                
         
         String token = request.getHeader("Authorization");
         // Bearer 339bb87821d1ffd0147d56e39f45f24c

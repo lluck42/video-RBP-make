@@ -12,7 +12,9 @@ public class MvcConfig implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        // 上传素材文件
         registry.addResourceHandler("/uploads/**").addResourceLocations("file:" + path);
+        // 前端静态文件
         registry.addResourceHandler("/html/**").addResourceLocations("file:" + path2);
     }
 }

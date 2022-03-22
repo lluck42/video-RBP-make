@@ -1,6 +1,7 @@
 package hnsjb.videoRBPmake;
 
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 import org.junit.jupiter.api.Test;
@@ -29,7 +30,7 @@ class VideoRbpMakeApplicationTests {
         // 设置邮件主题
         message.setSubject("这是一封测试邮件");
         // 设置邮件发送者，这个跟application.yml中设置的要一致
-        message.setFrom("425050765@qq.com");
+        message.setFrom("82995820@qq.com");
         // 设置邮件接收者，可以有多个接收者，中间用逗号隔开，以下类似
       	// message.setTo("10*****16@qq.com","12****32*qq.com");
         message.setTo("lluck42@163.com");
@@ -50,15 +51,12 @@ class VideoRbpMakeApplicationTests {
 
 	@Test
 	void sendMail2(){
-		mail.tes();
-		// mail one = new mail();
-		// one.sendMail("asdfqe1asf");
-		
-		try{
-			Thread.sleep(11000);
-		}catch(Exception e){
+    LocalDateTime now = LocalDateTime.now();
 
-		}
-		System.out.println("========22======");
+    String dir = System.getProperty("user.dir");
+
+    System.out.println(now);
+    System.out.println(dir);
+
 	}
 }
