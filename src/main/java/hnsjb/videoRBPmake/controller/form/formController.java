@@ -28,6 +28,20 @@ public class formController extends baseController {
         return rtn(one);
     }
 
+    @RequestMapping("myInfo")
+    public Rtn info(HttpServletRequest request, @RequestBody form form) {
+        admin info = (admin)request.getAttribute("info");
+
+        form one = formMapper.first(form.id);
+        if(one == null)
+            throw new RuntimeException("没有该记录！");
+        
+        if(one.admin_id != info.id)
+            throw new RuntimeException("没有该表单权限！");
+
+        return rtn(one);
+    }
+
     @RequestMapping("setFiles")
     public Rtn setFiles(HttpServletRequest request, @RequestBody form form) {
 
