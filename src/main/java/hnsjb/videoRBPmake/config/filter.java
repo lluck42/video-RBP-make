@@ -50,7 +50,7 @@ public class filter implements Filter{
         List<String> li = new ArrayList<String>();
         li.add("login");
         li.add("test");
-        li.add("upload");
+        li.add("uploads");
         li.add("html");
         
         if(args.length >= 2){
