@@ -7,7 +7,7 @@ import java.util.Date;
 import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.ResourceUtils;
+import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,7 +19,6 @@ import hnsjb.videoRBPmake.dao.form.form;
 import hnsjb.videoRBPmake.dao.form.formMapper;
 import hnsjb.videoRBPmake.dao.upload.upload;
 import hnsjb.videoRBPmake.dao.upload.uploadMapper;
-import hnsjb.videoRBPmake.tools.MD5;
 
 @RestController
 @RequestMapping("upload")
@@ -61,7 +60,7 @@ public class uploadController extends baseController {
         String suffix = fileName.substring(fileName.lastIndexOf("."));
         
         try{
-            String fileMd5 = MD5.calcMD5(file.getInputStream());
+            String fileMd5 = DigestUtils.md5DigestAsHex(file.getInputStream());
             // 新文件名
             fileName = fileMd5 + suffix;
         }catch(Exception e){

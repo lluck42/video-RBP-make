@@ -3,6 +3,7 @@ package hnsjb.videoRBPmake.controller.admin;
 import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -10,7 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 import hnsjb.videoRBPmake.controller.baseController;
 import hnsjb.videoRBPmake.dao.admin.admin;
 import hnsjb.videoRBPmake.dao.admin.adminMapper;
-import hnsjb.videoRBPmake.tools.MD5;
 import jakarta.servlet.http.HttpServletRequest;
 
 @RestController
@@ -34,12 +34,13 @@ public class adminController extends baseController {
         if(newPassword.equals(""))
             throw new RuntimeException("新密码不能为空！");
         
-        String md5Password = MD5.toHexString(password.getBytes());
+        String md5Password = DigestUtils.md5DigestAsHex(password.getBytes());
+        
         if(!md5Password.equals(info.password))
             throw new RuntimeException("密码不正确，请重新输入！");
         
         // 修改密码
-        info.password = MD5.toHexString(newPassword.getBytes());
+        info.password = DigestUtils.md5DigestAsHex(newPassword.getBytes());
         int sum = adminMapper.changePassword(info);
         if(sum==0)
             throw new RuntimeException("修改密码失败！");

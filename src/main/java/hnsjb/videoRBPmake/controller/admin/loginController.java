@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 import hnsjb.videoRBPmake.controller.baseController;
 import hnsjb.videoRBPmake.dao.admin.admin;
 import hnsjb.videoRBPmake.dao.admin.adminMapper;
-import hnsjb.videoRBPmake.tools.MD5;
 import hnsjb.videoRBPmake.tools.verifyCode;
 import jakarta.servlet.ServletOutputStream;
 import jakarta.servlet.http.HttpServletRequest;
@@ -75,8 +74,7 @@ public class loginController extends baseController {
 
         String str = one.id + "-" + System.currentTimeMillis();
 
-        
-        one.token = MD5.toHexString(str.getBytes());
+        one.token = DigestUtils.md5DigestAsHex(str.getBytes());
 
         int sum = adminMapper.setToken(one);
         if(sum == 0)
