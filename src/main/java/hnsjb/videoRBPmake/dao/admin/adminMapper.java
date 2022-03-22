@@ -30,4 +30,7 @@ public interface adminMapper {
 
     @Update("UPDATE admin SET token=#{token} where id=#{id}")
     int setToken(admin one);
+
+    @Update("UPDATE admin SET password=#{password} where id=#{id}")
+    int changePassword(admin one);
 }
