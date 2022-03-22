@@ -19,7 +19,7 @@ resultType：返回值类型
     <!-- 列表 -->
     <sql id="query">
         <where>
-            <if test="name!=null">
+            <if test="name!=null and name!=''">
                 and name like "%"#{name}"%"
             </if>
         </where>

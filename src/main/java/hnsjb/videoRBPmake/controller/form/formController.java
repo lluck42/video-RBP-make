@@ -183,11 +183,14 @@ public class formController extends baseController {
 
     // 用于 cp 查看和自己相关的 form
     @RequestMapping("/myList")
-    public Rtn mylist(@RequestBody HashMap<String,Object> req) {
+    public Rtn mylist(HttpServletRequest request, @RequestBody HashMap<String,Object> req) {
 
+        admin info = (admin)request.getAttribute("info");
+        
         int page = (int)req.get("page");
         int limit = (int)req.get("limit");
-        String name = (String)req.get("name");
+        String status = (String)req.get("status");
+        String search = (String)req.get("search");
 
         // 计算 offset
         int offset = (page - 1) * limit;
@@ -195,8 +198,10 @@ public class formController extends baseController {
         HashMap<String,Object> map = new HashMap<String,Object>();
         map.put("offset", offset);
         map.put("limit", limit);
-        map.put("admin_id", 1);
-        
+        map.put("admin_id", info.id);
+        map.put("status", status);
+        map.put("search", search);
+
         // rtn map
         HashMap<String,Object> data = new HashMap<String,Object>();
         
