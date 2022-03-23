@@ -19,6 +19,7 @@ import hnsjb.videoRBPmake.dao.form.dialog;
 import hnsjb.videoRBPmake.dao.form.dialogMapper;
 import hnsjb.videoRBPmake.dao.form.form;
 import hnsjb.videoRBPmake.dao.form.formMapper;
+import hnsjb.videoRBPmake.tools.mail;
 
 @RestController
 @RequestMapping("/test")
@@ -80,24 +81,15 @@ public class test extends baseController {
         return rtn(ss);
     }
 
+    @Autowired
+    mail mail;
 
-    @RequestMapping("/list")
+    @RequestMapping("/mail")
     public Rtn list(@RequestParam(defaultValue = "") String name, @RequestParam(defaultValue = "2") Integer limit, @RequestParam(defaultValue = "1") Integer page) {
         
-        // 计算 offset
-        int offset = (page - 1) * limit;
+        mail.sendMail("lluck42@163.com", "你好啊菜鸟hahahha");
         
-        Map<String,Object> map = new HashMap<String,Object>();
-        map.put("offset", offset);
-        map.put("limit", limit);
-        map.put("name", name);
-
-        // rtn map
-        Map<String,Object> data = new HashMap<String,Object>();
-        data.put("count", this.testMapper.count(map));
-        data.put("list", this.testMapper.list(map));
-        
-        return rtn(data);
+        return rtn(1);
     }
 
     
