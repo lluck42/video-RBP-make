@@ -21,8 +21,8 @@ public class MvcConfig implements WebMvcConfigurer {
         registry.addResourceHandler("/html/**").addResourceLocations("file:" + dir + "/html/");
 
         // favicon.ico
-        registry.addResourceHandler("/favicon.ico")
-                .addResourceLocations("file:" + System.getProperty("user.dir") + "/html/");
+        // registry.addResourceHandler("/favicon.ico")
+        //         .addResourceLocations("file:" + System.getProperty("user.dir") + "/html/");
     }
 
     // @Override

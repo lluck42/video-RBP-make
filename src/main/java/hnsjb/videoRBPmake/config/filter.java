@@ -56,7 +56,7 @@ public class filter implements Filter{
         li.add("test");
         li.add("uploads");
         li.add("html");
-        li.add("favicon.ico");
+        // li.add("favicon.ico");
         
         // 路径 / 不验证
         if(args.length == 0){
