@@ -44,11 +44,10 @@ public class filter implements Filter{
         
         String uri = request.getRequestURI();
 
-        if(uri.equals("/")){
-            filterChain.doFilter(request, response);
-            return;
-        }
-
+        // if(uri.equals("/")){
+        //     filterChain.doFilter(request, response);
+        //     return;
+        // }
         String[] args = uri.split("/");
         
         // 如果被包含 则不鉴权
@@ -57,16 +56,19 @@ public class filter implements Filter{
         li.add("test");
         li.add("uploads");
         li.add("html");
+        li.add("favicon.ico");
         
-        if(args.length >= 2){
-            if(li.contains(args[1])){
-                filterChain.doFilter(request, response);
-                return;
-            }
+        // 路径 / 不验证
+        if(args.length == 0){
+            filterChain.doFilter(request, response);
+            return;
         }
 
+        if(li.contains(args[1])){
+            filterChain.doFilter(request, response);
+            return;
+        }
 
-        
         String token = request.getHeader("Authorization");
         // Bearer 339bb87821d1ffd0147d56e39f45f24c
         if(token == null){
