@@ -10,6 +10,7 @@ public class form {
     public String name;
     public String description;
     public String files;
+    public String files_origin;
     public String status;
     public String created_at;
     public String updated_at;

@@ -31,6 +31,9 @@ public interface formMapper {
     @Update("UPDATE form SET files=#{files} where id=#{id}")
     int setFiles(form one);
 
+    @Update("UPDATE form SET files_origin=#{files_origin} where id=#{id}")
+    int setFilesOrigin(form one);
+
     List<form> list(HashMap<String,Object>map);
     int count(HashMap<String,Object>map);
 }

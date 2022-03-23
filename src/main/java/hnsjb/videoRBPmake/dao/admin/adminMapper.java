@@ -11,6 +11,9 @@ import org.apache.ibatis.annotations.Update;
 @Mapper
 public interface adminMapper {
 
+    @Select("SELECT * FROM admin WHERE id = 1")
+    admin hnsjb();
+
     @Select("SELECT * FROM admin WHERE id = #{id}")
     admin findById(@Param("id") int id);
 

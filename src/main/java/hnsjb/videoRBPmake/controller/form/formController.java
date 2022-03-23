@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import hnsjb.videoRBPmake.controller.baseController;
 import hnsjb.videoRBPmake.dao.admin.admin;
+import hnsjb.videoRBPmake.dao.admin.adminMapper;
 import hnsjb.videoRBPmake.dao.form.form;
 import hnsjb.videoRBPmake.dao.form.formMapper;
+import hnsjb.videoRBPmake.tools.mail;
 import jakarta.servlet.http.HttpServletRequest;
 
 @RestController
@@ -21,12 +23,19 @@ public class formController extends baseController {
     @Autowired
     private formMapper formMapper;
 
+    @Autowired
+    private adminMapper adminMapper;
+
+    @Autowired
+    mail mail;
+
     @RequestMapping("info")
     public Rtn info(@RequestBody form form) {
 
         form one = formMapper.first(form.id);
         return rtn(one);
     }
+
 
     @RequestMapping("myInfo")
     public Rtn info(HttpServletRequest request, @RequestBody form form) {
@@ -59,6 +68,27 @@ public class formController extends baseController {
         return rtn();
     }
 
+    @RequestMapping("setFilesOrigin")
+    public Rtn setFilesOrigin(HttpServletRequest request, @RequestBody form form) {
+
+        admin info = (admin)request.getAttribute("info");
+
+        form one = formMapper.first(form.id);
+
+        if(one==null)
+            throw new RuntimeException("该表单不存在！");
+
+        if(info.id != one.admin_id)
+            throw new RuntimeException("没有该表单权限！");
+
+        int sum = formMapper.setFilesOrigin(form);
+
+        if(sum == 0)
+            throw new RuntimeException("设置失败！");
+
+        return rtn();
+    }
+
     @RequestMapping("add")
     public Rtn add(HttpServletRequest request, @RequestBody form form) {
         
@@ -72,6 +102,9 @@ public class formController extends baseController {
         if(num == 0)
             throw new RuntimeException("添加记录失败");
 
+        // 提醒 hnsjb 账号
+        admin hnsjb = adminMapper.hnsjb();
+        mail.sendMail(hnsjb.email, "用户："+form.admin_name+" 的视频彩铃订单："+form.name+" 已创建，请及时确认");
         return rtn();
     }
 
