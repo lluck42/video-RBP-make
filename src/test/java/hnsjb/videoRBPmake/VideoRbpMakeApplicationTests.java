@@ -42,7 +42,7 @@ class VideoRbpMakeApplicationTests {
 		
         message.setSentDate(new Date());
         // 设置邮件的正文
-        message.setText("这2是测试邮件\n的正文!!!");
+        message.setText("2022年3月23日这2是测试邮件\n的正文!!!");
         // 发送邮件
         javaMailSender.send(message);
 	}

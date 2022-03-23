@@ -1,6 +1,7 @@
 package hnsjb.videoRBPmake.controller.test;
 
-import java.time.LocalDateTime;
+import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -9,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import hnsjb.videoRBPmake.controller.baseController;
 import hnsjb.videoRBPmake.dao.testMapper;
@@ -32,7 +34,7 @@ public class test extends baseController {
     private dialogMapper dialogMapper;
 
 
-    @RequestMapping("/test2")
+    @RequestMapping("/test")
     @Transactional
     public Rtn listArticles(String title, Integer pageSize, Integer pageNum) {
 
@@ -55,17 +57,27 @@ public class test extends baseController {
     @Autowired
     admin ta;
 
-    @RequestMapping("/test")
-    public Rtn listArticles2(String title, Integer pageSize, Integer pageNum) {
-
-        LocalDateTime now = LocalDateTime.now();
-
+    @RequestMapping("/test2")
+    public Rtn listArticles2(@RequestParam("file") MultipartFile[] files) {
         String dir = System.getProperty("user.dir");
-    
-        System.out.println(now);
-        System.out.println(dir);
-    
-        return rtn();
+
+        ArrayList<String> ss = new ArrayList<String>();
+
+        for(MultipartFile file: files){
+            System.out.println(file);
+            try{
+                String fileName = file.getOriginalFilename();
+                File dest = new File(dir + "/" + fileName);
+                file.transferTo(dest);
+                ss.add(dir + "/" + fileName);
+            }catch(Exception e){
+                throw new RuntimeException(e.getMessage());
+            }
+
+        }
+
+
+        return rtn(ss);
     }
 
 
