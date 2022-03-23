@@ -93,7 +93,7 @@ public class loginController extends baseController {
         String code = verifyCode.getSecurityCode();
         //将验证码放入session
         session.setAttribute("code",code);
-        System.out.println("code:" + code);
+        // System.out.println("code:" + code);
         //生成图片
         BufferedImage image = verifyCode.createImage(code);
         try{
