@@ -19,11 +19,15 @@ public interface formMapper {
     @Options(useGeneratedKeys=true, keyProperty="id")
     int add(form one);
 
+    @Update("UPDATE form SET name=#{name}, description=#{description}, files_origin=#{files_origin} where id=#{id}")
+    int myUpdate(form one);
+
     @Select("SELECT * FROM form WHERE id = #{id} limit 1")
     form first(@Param("id") int id);
 
     @Delete("delete from form where id = #{id}")
     int delete(form one);
+
 
     @Update("UPDATE form SET status=#{status} where id=#{id}")
     int setStatus(form one);

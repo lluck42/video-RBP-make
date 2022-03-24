@@ -108,6 +108,26 @@ public class formController extends baseController {
         return rtn(form);
     }
 
+    @RequestMapping("myUpdate")
+    public Rtn myUpdate(HttpServletRequest request, @RequestBody form form) {
+        admin info = (admin)request.getAttribute("info");
+
+        form one = formMapper.first(form.id);
+
+        if(one==null)
+            throw new RuntimeException("该表单不存在！");
+
+        if(info.id != one.admin_id)
+            throw new RuntimeException("没有该表单权限！");
+
+        int num = formMapper.myUpdate(form);
+        if(num == 0)
+            throw new RuntimeException("修改记录失败");
+
+        return rtn();
+    }
+
+
     @RequestMapping("confirm")
     public Rtn confirm(@RequestBody form form) {
         
