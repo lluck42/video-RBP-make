@@ -105,7 +105,7 @@ public class formController extends baseController {
         // 提醒 hnsjb 账号
         admin hnsjb = adminMapper.hnsjb();
         mail.sendMail(hnsjb.email, "用户："+form.admin_name+" 的视频彩铃订单："+form.name+" 已创建，请及时确认");
-        return rtn();
+        return rtn(form);
     }
 
     @RequestMapping("confirm")
