@@ -11,7 +11,7 @@
 	</parent>
 	<groupId>hnsjb</groupId>
 	<artifactId>video-RBP-make</artifactId>
-	<version>1.0.4</version>
+	<version>1.0.5</version>
 	<name>video-RBP-make</name>
 	<description>用于申请制作视频</description>
 	<properties>

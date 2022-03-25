@@ -9,6 +9,8 @@ public class form {
     public String admin_name;
     public String name;
     public String description;
+    public String link_man;
+    public String link_mobile;
     public String files;
     public String files_origin;
     public String status;
