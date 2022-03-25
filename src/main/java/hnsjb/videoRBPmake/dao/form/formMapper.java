@@ -22,7 +22,7 @@ public interface formMapper {
     @Update("UPDATE form SET name=#{name}, description=#{description}, link_man=#{link_man}, link_mobile=#{link_mobile}, files_origin=#{files_origin} where id=#{id}")
     int myUpdate(form one);
 
-    @Select("SELECT * FROM form WHERE id = #{id} limit 1")
+    @Select("SELECT * FROM form WHERE id = #{id}")
     form first(@Param("id") int id);
 
     @Delete("delete from form where id = #{id}")

@@ -17,7 +17,7 @@ public interface dialogMapper {
     @Options(useGeneratedKeys=true, keyProperty="id")
     int add(dialog one);
 
-    @Select("SELECT * FROM form_dialog WHERE id = #{id} limit 1")
+    @Select("SELECT * FROM form_dialog WHERE id = #{id}")
     dialog first(@Param("id") int id);
 
     @Delete("delete from form_dialog where id = #{id}")

@@ -15,7 +15,7 @@ public interface adminMapper {
     admin hnsjb();
 
     @Select("SELECT * FROM admin WHERE id = #{id}")
-    admin findById(@Param("id") int id);
+    admin first(@Param("id") int id);
 
     int update(@Param("id") admin test);
 

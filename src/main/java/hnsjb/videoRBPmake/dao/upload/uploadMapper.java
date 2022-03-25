@@ -17,7 +17,7 @@ public interface uploadMapper {
     @Options(useGeneratedKeys=true, keyProperty="id")
     int add(upload one);
 
-    @Select("SELECT * FROM upload WHERE id = #{id} limit 1")
+    @Select("SELECT * FROM upload WHERE id = #{id}")
     upload first(@Param("id") int id);
 
     @Delete("delete from upload where id = #{id}")

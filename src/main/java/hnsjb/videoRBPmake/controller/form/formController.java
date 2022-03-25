@@ -140,6 +140,10 @@ public class formController extends baseController {
         if(num == 0)
             throw new RuntimeException("确认失败！");
 
+        // 提醒 联通 账号
+        admin admin = adminMapper.first(one.admin_id);
+        mail.sendMail(admin.email, "您的视频彩铃订单："+ one.name +" 平台已开始制作");
+
         return rtn();
     }
 
@@ -158,6 +162,10 @@ public class formController extends baseController {
         int num = formMapper.setStatus(one);
         if(num == 0)
             throw new RuntimeException("确认失败！");
+
+        // 提醒 联通 账号
+        admin admin = adminMapper.first(one.admin_id);
+        mail.sendMail(admin.email, "您的视频彩铃订单："+ one.name +" 平台已制作完成，请审核");
 
         return rtn();
     }
@@ -178,6 +186,10 @@ public class formController extends baseController {
         int num = formMapper.setStatus(one);
         if(num == 0)
             throw new RuntimeException("确认失败！");
+        
+        // 提醒 hnsjb 账号
+        admin hnsjb = adminMapper.hnsjb();
+        mail.sendMail(hnsjb.email, "用户："+form.admin_name+" 的视频彩铃订单："+form.name+" 已通过审核");
 
         return rtn();
     }
@@ -198,6 +210,10 @@ public class formController extends baseController {
         int num = formMapper.setStatus(one);
         if(num == 0)
             throw new RuntimeException("确认失败！");
+        
+        // 提醒 hnsjb 账号
+        admin hnsjb = adminMapper.hnsjb();
+        mail.sendMail(hnsjb.email, "用户："+form.admin_name+" 的视频彩铃订单："+form.name+" 已被驳回，请重新制作后提交");
 
         return rtn();
     }
