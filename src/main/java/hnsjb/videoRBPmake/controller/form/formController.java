@@ -189,7 +189,7 @@ public class formController extends baseController {
         
         // 提醒 hnsjb 账号
         admin hnsjb = adminMapper.hnsjb();
-        mail.sendMail(hnsjb.email, "用户："+form.admin_name+" 的视频彩铃订单："+form.name+" 已通过审核");
+        mail.sendMail(hnsjb.email, "用户："+one.admin_name+" 的视频彩铃订单："+one.name+" 已通过审核");
 
         return rtn();
     }
@@ -213,7 +213,7 @@ public class formController extends baseController {
         
         // 提醒 hnsjb 账号
         admin hnsjb = adminMapper.hnsjb();
-        mail.sendMail(hnsjb.email, "用户："+form.admin_name+" 的视频彩铃订单："+form.name+" 已被驳回，请重新制作后提交");
+        mail.sendMail(hnsjb.email, "用户："+one.admin_name+" 的视频彩铃订单："+one.name+" 已被驳回，请重新制作后提交");
 
         return rtn();
     }
