@@ -2,8 +2,6 @@ package hnsjb.videoRBPmake.controller.test;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,6 +18,7 @@ import hnsjb.videoRBPmake.dao.form.dialogMapper;
 import hnsjb.videoRBPmake.dao.form.form;
 import hnsjb.videoRBPmake.dao.form.formMapper;
 import hnsjb.videoRBPmake.tools.mail;
+import jakarta.servlet.http.HttpServletResponse;
 
 @RestController
 @RequestMapping("/test")
@@ -59,7 +58,12 @@ public class test extends baseController {
     admin ta;
 
     @RequestMapping("/test2")
-    public Rtn listArticles2(@RequestParam("file") MultipartFile[] files) {
+    public Rtn listArticles2(@RequestParam("file") MultipartFile[] files, HttpServletResponse response) {
+        response.addHeader("Access-Control-Allow-Origin", "*");
+        response.addHeader("Access-Control-Allow-Methods", "GET,HEAD,POST,PUT,PATCH,OPTIONS,DELETE");
+        response.addHeader("Access-Control-Allow-Headers", "*");
+        response.addHeader("Access-Control-Allow-Credentials", "true");
+
         String dir = System.getProperty("user.dir");
 
         ArrayList<String> ss = new ArrayList<String>();
