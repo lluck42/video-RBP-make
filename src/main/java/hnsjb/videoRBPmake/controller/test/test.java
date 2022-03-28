@@ -72,9 +72,9 @@ public class test extends baseController {
             System.out.println(file);
             try{
                 String fileName = file.getOriginalFilename();
-                File dest = new File(dir + "/" + fileName);
+                File dest = new File(dir + "/test/" + fileName);
                 file.transferTo(dest);
-                ss.add(dir + "/" + fileName);
+                ss.add(dir + "/test/" + fileName);
             }catch(Exception e){
                 throw new RuntimeException(e.getMessage());
             }
