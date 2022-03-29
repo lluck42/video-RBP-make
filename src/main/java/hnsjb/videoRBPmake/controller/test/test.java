@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -57,6 +58,11 @@ public class test extends baseController {
     @Autowired
     admin ta;
 
+    @RequestMapping(value="/test2", method = RequestMethod.OPTIONS)
+    public void listArticles2Options() {
+        
+    }
+
     @RequestMapping("/test2")
     public Rtn listArticles2(@RequestParam("file") MultipartFile[] files, HttpServletResponse response) {
         response.addHeader("Access-Control-Allow-Origin", "*");
@@ -88,11 +94,29 @@ public class test extends baseController {
     @Autowired
     mail mail;
 
-    @RequestMapping("/mail")
-    public Rtn list(@RequestParam(defaultValue = "") String name, @RequestParam(defaultValue = "2") Integer limit, @RequestParam(defaultValue = "1") Integer page) {
-        
-        mail.sendMail("lluck42@163.com", "你好啊菜鸟hahahha");
-        
+    @RequestMapping(value="/mail", method = RequestMethod.OPTIONS)
+    public Rtn list(HttpServletResponse response) {
+        response.addHeader("Access-Control-Allow-Origin", "*");
+        response.addHeader("Access-Control-Allow-Methods", "GET,HEAD,POST,PUT,PATCH,OPTIONS,DELETE");
+        response.addHeader("Access-Control-Allow-Headers", "*");
+        response.addHeader("Access-Control-Allow-Credentials", "true");
+
+        // String[] aa = {"asdf","weerqasdfwer"};
+        // mail.sendMail("lluck42@163.com", "你好啊菜鸟hahahha");
+        System.out.println(RequestMethod.OPTIONS);
+        return rtn(1);
+    }
+
+    @RequestMapping(value="/mail")
+    public Rtn list2(HttpServletResponse response) {
+        response.addHeader("Access-Control-Allow-Origin", "*");
+        response.addHeader("Access-Control-Allow-Methods", "GET,HEAD,POST,PUT,PATCH,OPTIONS,DELETE");
+        response.addHeader("Access-Control-Allow-Headers", "*");
+        response.addHeader("Access-Control-Allow-Credentials", "true");
+
+        // String[] aa = {"asdf","weerqasdfwer"};
+        // mail.sendMail("lluck42@163.com", "你好啊菜鸟hahahha");
+        System.out.println(RequestMethod.OPTIONS);
         return rtn(1);
     }
 
