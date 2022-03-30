@@ -13,7 +13,7 @@ import org.apache.ibatis.annotations.Select;
 @Mapper
 public interface uploadMapper {
 
-    @Insert("insert into upload(name,src,type,form_id,form_name,form_description) values(#{name},#{src},#{type},#{form_id},#{form_name},#{form_description})")
+    @Insert("insert into upload(name,src,type,form_id) values(#{name},#{src},#{type},#{form_id})")
     @Options(useGeneratedKeys=true, keyProperty="id")
     int add(upload one);
 

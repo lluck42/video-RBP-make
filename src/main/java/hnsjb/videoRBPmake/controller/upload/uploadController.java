@@ -43,7 +43,7 @@ public class uploadController extends baseController {
     }
 
     @RequestMapping("add")
-    public Rtn listArticles(@RequestParam("file") MultipartFile file, @RequestParam("form_id") int form_id, @RequestParam("type") String type) {
+    public Rtn add(@RequestParam("file") MultipartFile file, @RequestParam("form_id") int form_id, @RequestParam("type") String type) {
 
         if(file.isEmpty()){
             throw new RuntimeException("上传失败，请选择文件！");
@@ -89,8 +89,8 @@ public class uploadController extends baseController {
         one.name = file.getOriginalFilename();
         one.type = type;
         one.form_id = form_id;
-        one.form_name = form.name;
-        one.form_description = form.description;
+        // one.form_name = form.name;
+        // one.form_description = form.description;
         one.src = filePath + fileName; // 相对路径
         uploadMapper.add(one);
 
