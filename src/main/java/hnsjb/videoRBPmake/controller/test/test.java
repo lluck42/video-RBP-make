@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.Nullable;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -19,6 +20,7 @@ import hnsjb.videoRBPmake.dao.form.dialogMapper;
 import hnsjb.videoRBPmake.dao.form.form;
 import hnsjb.videoRBPmake.dao.form.formMapper;
 import hnsjb.videoRBPmake.tools.mail;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 @RestController
@@ -58,17 +60,17 @@ public class test extends baseController {
     @Autowired
     admin ta;
 
-    @RequestMapping(value="/test2", method = RequestMethod.OPTIONS)
-    public void listArticles2Options() {
+    @RequestMapping(value="/test2", method = {RequestMethod.OPTIONS,RequestMethod.POST})
+    public Rtn listArticles2( HttpServletRequest request, @RequestParam("file") @Nullable MultipartFile[] files, HttpServletResponse response) {
         
-    }
-
-    @RequestMapping("/test2")
-    public Rtn listArticles2(@RequestParam("file") MultipartFile[] files, HttpServletResponse response) {
+        if(request.getMethod().equals("OPTIONS"))
+            return rtn("success");
+        
         response.addHeader("Access-Control-Allow-Origin", "*");
         response.addHeader("Access-Control-Allow-Methods", "GET,HEAD,POST,PUT,PATCH,OPTIONS,DELETE");
         response.addHeader("Access-Control-Allow-Headers", "*");
         response.addHeader("Access-Control-Allow-Credentials", "true");
+        
 
         String dir = System.getProperty("user.dir");
 
