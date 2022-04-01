@@ -141,8 +141,8 @@ public class formController extends baseController {
             throw new RuntimeException("确认失败！");
 
         // 提醒 联通 账号
-        // admin admin = adminMapper.first(one.admin_id);
-        // mail.sendMail(admin.email, "您的视频彩铃订单："+ one.name +" 平台已开始制作");
+        admin admin = adminMapper.first(one.admin_id);
+        mail.sendMail(admin.email, "您的视频彩铃订单："+ one.name +" 平台已开始制作");
 
         return rtn();
     }
@@ -164,8 +164,8 @@ public class formController extends baseController {
             throw new RuntimeException("确认失败！");
 
         // 提醒 联通 账号
-        // admin admin = adminMapper.first(one.admin_id);
-        // mail.sendMail(admin.email, "您的视频彩铃订单："+ one.name +" 平台已制作完成，请审核");
+        admin admin = adminMapper.first(one.admin_id);
+        mail.sendMail(admin.email, "您的视频彩铃订单："+ one.name +" 平台已制作完成，请审核");
 
         return rtn();
     }
