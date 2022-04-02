@@ -181,7 +181,7 @@ public class formController extends baseController {
             throw new RuntimeException("没有该记录！");
 
         one.production_status = form.production_status;
-        
+
         int num = formMapper.setProductionStatus(form);
         if(num == 0)
             throw new RuntimeException("设置失败");
@@ -291,6 +291,7 @@ public class formController extends baseController {
         
         int page = (int)req.get("page");
         int limit = (int)req.get("limit");
+        int company_id = (int)req.get("company_id");
         String status = (String)req.get("status");
         String search = (String)req.get("search");
 
@@ -301,6 +302,7 @@ public class formController extends baseController {
         map.put("offset", offset);
         map.put("limit", limit);
         map.put("admin_id", info.id);
+        map.put("company_id", company_id);
         map.put("status", status);
         map.put("search", search);
 
