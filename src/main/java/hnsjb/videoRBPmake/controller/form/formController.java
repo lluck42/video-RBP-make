@@ -136,7 +136,10 @@ public class formController extends baseController {
             throw new RuntimeException("发生错误，请刷新后尝试！");
     
         one.status = "确认";
-        int num = formMapper.setStatus(one);
+        one.visit_date = form.visit_date;
+        one.expect_delivery_date = form.expect_delivery_date;
+
+        int num = formMapper.confirm(one); // 设置
         if(num == 0)
             throw new RuntimeException("确认失败！");
 
@@ -166,6 +169,22 @@ public class formController extends baseController {
         // 提醒 联通 账号
         admin admin = adminMapper.first(one.admin_id);
         mail.sendMail(admin.email, "您的视频彩铃订单："+ one.name +" 平台已制作完成，请审核");
+
+        return rtn();
+    }
+
+    @RequestMapping("setProductionStatus")
+    public Rtn setProductionStatus(@RequestBody form form) {
+        
+        form one = formMapper.first(form.id);
+        if(one == null)
+            throw new RuntimeException("没有该记录！");
+
+        one.production_status = form.production_status;
+        
+        int num = formMapper.setProductionStatus(form);
+        if(num == 0)
+            throw new RuntimeException("设置失败");
 
         return rtn();
     }

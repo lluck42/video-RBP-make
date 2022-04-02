@@ -47,22 +47,26 @@ public class companyController extends baseController {
         company.admin_id = one.id;
 
         switch(company.scale){
-           case "aaa":
+           case "A":
             company.clip_num = 1;
             company.shoot_num = 1;
             company.interview_num = 1;
               break;
-           case "bbb":
+           case "B":
             company.clip_num = 2;
             company.shoot_num = 2;
             company.interview_num = 2;
-
-           break;
-           case "ccc":
+            break;
+           case "C":
             company.clip_num = 3;
             company.shoot_num = 3;
             company.interview_num = 3;
-           break;
+            break;
+           case "D":
+            company.clip_num = 4;
+            company.shoot_num = 4;
+            company.interview_num = 4;
+            break;
         }
 
         int num = companyMapper.add(company);

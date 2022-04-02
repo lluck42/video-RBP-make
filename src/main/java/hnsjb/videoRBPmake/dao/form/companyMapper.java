@@ -9,6 +9,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 
 @Mapper
@@ -26,4 +27,14 @@ public interface companyMapper {
 
     List<form> list(HashMap<String,Object>map);
     int count(HashMap<String,Object>map);
+
+    @Update("UPDATE company SET shoot_num=shoot_num-1 where id=#{id}")
+    int shootNumReduce1(@Param("id") int id);
+
+    @Update("UPDATE company SET clip_num=clip_num-1 where id=#{id}")
+    int clipNumReduce1(@Param("id") int id);
+
+    @Update("UPDATE company SET interview_num=interview_num-1 where id=#{id}")
+    int interviewNumReduce1(@Param("id") int id);
+
 }
