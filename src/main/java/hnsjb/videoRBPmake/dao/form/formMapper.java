@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.ResultType;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
@@ -40,4 +41,9 @@ public interface formMapper {
 
     List<form> list(HashMap<String,Object>map);
     int count(HashMap<String,Object>map);
+
+    @Select("SELECT count(*) FROM form WHERE company_id = #{company_id}")
+    @ResultType(int.class)
+    int oneCompanyCount(@Param("company_id") int company_id);
+
 }

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--
+namespace:命名空间,指定为接口的全类名
+selectUserById：唯一标识
+resultType：返回值类型
+-->
+<mapper namespace="hnsjb.videoRBPmake.dao.form.companyMapper">
+    <!-- 修改 -->
+    <update id="update" parameterType="hnsjb.videoRBPmake.dao.form.company">
+        UPDATE form SET
+        <trim suffixOverrides=",">
+            <if test="name!=null">name=#{name},</if>
+        </trim>
+        where id=#{id}
+    </update>
+    <!-- 列表 -->
+    <sql id="query">
+        <where>
+            <if test="name!=null and name!=''">
+                and name=#{name}
+            </if>
+            <if test="admin_id!=null">
+                and admin_id=#{admin_id}
+            </if>
+        </where>
+    </sql>
+    <select id="list" parameterType="java.util.HashMap" resultType="hnsjb.videoRBPmake.dao.form.company">
+        select * from company
+        <include refid="query"></include>
+        order by id desc limit #{offset},#{limit} 
+    </select>
+    <select id="count" parameterType="java.util.HashMap" resultType="java.lang.Integer">
+        select count(*) from company
+        <include refid="query"></include>
+    </select>
+
+</mapper>
