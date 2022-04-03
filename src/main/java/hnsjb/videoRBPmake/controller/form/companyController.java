@@ -40,34 +40,55 @@ public class companyController extends baseController {
     }
 
 
-    @RequestMapping("add")
+    @RequestMapping("myAdd")
     public Rtn add(HttpServletRequest request, @RequestBody company company) {
         
         admin one = (admin)request.getAttribute("info");
         company.admin_id = one.id;
 
+        company hasOne = companyMapper.findMyByName(company);
+        if(hasOne != null)
+            throw new RuntimeException("该公司名称已存在："+company.name);
+
         switch(company.scale){
            case "A":
+            // 1~50 人
             company.clip_num = 1;
-            company.shoot_num = 1;
             company.interview_num = 1;
+            company.shoot_num = 0;
               break;
            case "B":
-            company.clip_num = 2;
-            company.shoot_num = 2;
-            company.interview_num = 2;
+            // 50~200
+            company.clip_num = 1;
+            company.interview_num = 1;
+            company.shoot_num = 1;
             break;
            case "C":
-            company.clip_num = 3;
-            company.shoot_num = 3;
-            company.interview_num = 3;
+            // 200~400
+            company.clip_num = 2;
+            company.interview_num = 2;
+            company.shoot_num = 2;
             break;
            case "D":
+            // 400~600
+            company.clip_num = 3;
+            company.interview_num = 3;
+            company.shoot_num = 3;
+            break;
+           case "E":
+            // 600~800
             company.clip_num = 4;
-            company.shoot_num = 4;
             company.interview_num = 4;
+            company.shoot_num = 4;
+            break;
+           case "F":
+            // 800~1000
+            company.clip_num = 5;
+            company.interview_num = 5;
+            company.shoot_num = 5;
             break;
         }
+        
 
         int num = companyMapper.add(company);
         if(num == 0)
@@ -76,12 +97,17 @@ public class companyController extends baseController {
         return rtn(company);
     }
 
-    @RequestMapping("delete")
-    public Rtn delete(@RequestBody company company) {
+    @RequestMapping("myDelete")
+    public Rtn myDelete(HttpServletRequest request, @RequestBody company company) {
+
+        admin info = (admin)request.getAttribute("info");
         
         company one = companyMapper.first(company.id);
         if(one == null)
             throw new RuntimeException("该记录不存在");
+        
+        if(one.admin_id != info.id)
+            throw new RuntimeException("没有该公司权限！");
         
         int form_num = formMapper.oneCompanyCount(company.id);
         if(form_num>0)

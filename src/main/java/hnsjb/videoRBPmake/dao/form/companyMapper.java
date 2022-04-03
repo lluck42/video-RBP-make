@@ -15,9 +15,12 @@ import org.apache.ibatis.annotations.Update;
 @Mapper
 public interface companyMapper {
     
-    @Insert("insert into company(admin_id,name,scale,address,shoot_num,clip_num,interview_num) values(#{admin_id},#{name},#{scale},#{address},#{shoot_num},#{clip_num}),#{interview_num})")
+    @Insert("insert into company(admin_id,name,scale,address,shoot_num,clip_num,interview_num) values(#{admin_id},#{name},#{scale},#{address},#{shoot_num},#{clip_num},#{interview_num})")
     @Options(useGeneratedKeys=true, keyProperty="id")
     int add(company one);
+
+    @Select("SELECT * FROM company WHERE name = #{name} and admin_id = #{admin_id} limit 1")
+    company findMyByName(company one);
 
     @Select("SELECT * FROM company WHERE id = #{id}")
     company first(@Param("id") int id);
