@@ -31,6 +31,9 @@ resultType：返回值类型
             <if test="admin_id!=null">
                 and admin_id=#{admin_id}
             </if>
+            <if test="company_id!=null and company_id=0">
+                and company_id=#{company_id}
+            </if>
         </where>
     </sql>
     <select id="list" parameterType="java.util.HashMap" resultType="hnsjb.videoRBPmake.dao.form.form">

@@ -23,7 +23,7 @@ resultType：返回值类型
                 and company_id=#{company_id}
             </if>
             <if test="name!=null and name!=''">
-                and name=#{name}
+                and name like "%"#{name}"%"
             </if>
             <if test="admin_id!=null">
                 and admin_id=#{admin_id}

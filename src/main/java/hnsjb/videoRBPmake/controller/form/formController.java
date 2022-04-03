@@ -94,9 +94,9 @@ public class formController extends baseController {
         
         form.status = "创建";
         // new admin();
-        admin one = (admin)request.getAttribute("info");
-        form.admin_id = one.id;
-        form.admin_name = one.name;
+        admin info = (admin)request.getAttribute("info");
+        form.admin_id = info.id;
+        form.admin_name = info.name;
 
         int num = formMapper.add(form);
         if(num == 0)
@@ -291,7 +291,8 @@ public class formController extends baseController {
         
         int page = (int)req.get("page");
         int limit = (int)req.get("limit");
-        int company_id = (int)req.get("company_id");
+
+        int company_id = (int)req.get("company_id"); // 否定形式为0
         String status = (String)req.get("status");
         String search = (String)req.get("search");
 
