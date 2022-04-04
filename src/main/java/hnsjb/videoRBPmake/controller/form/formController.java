@@ -292,7 +292,8 @@ public class formController extends baseController {
         int page = (int)req.get("page");
         int limit = (int)req.get("limit");
 
-        int company_id = (int)req.get("company_id"); // 否定形式为0
+        Integer company_id = (Integer)req.get("company_id"); // 否定形式为0
+
         String status = (String)req.get("status");
         String search = (String)req.get("search");
 
