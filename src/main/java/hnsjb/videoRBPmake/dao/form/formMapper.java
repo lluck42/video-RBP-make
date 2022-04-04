@@ -46,6 +46,8 @@ public interface formMapper {
     int setFilesOrigin(form one);
 
     List<form> list(HashMap<String,Object>map);
+    List<formCompany> listCompany(HashMap<String,Object>map);
+    
     int count(HashMap<String,Object>map);
 
     @Select("SELECT count(*) FROM form WHERE company_id = #{company_id}")

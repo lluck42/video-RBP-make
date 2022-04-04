@@ -278,7 +278,7 @@ public class formController extends baseController {
         HashMap<String,Object> data = new HashMap<String,Object>();
         
         data.put("count", formMapper.count(map));
-        data.put("list", formMapper.list(map));
+        data.put("list", formMapper.listCompany(map));
         
         return rtn(data);
     }

@@ -2,6 +2,8 @@ package hnsjb.videoRBPmake.controller.test;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.Nullable;
@@ -15,9 +17,8 @@ import org.springframework.web.multipart.MultipartFile;
 import hnsjb.videoRBPmake.controller.baseController;
 import hnsjb.videoRBPmake.dao.testMapper;
 import hnsjb.videoRBPmake.dao.admin.admin;
-import hnsjb.videoRBPmake.dao.form.dialog;
 import hnsjb.videoRBPmake.dao.form.dialogMapper;
-import hnsjb.videoRBPmake.dao.form.form;
+import hnsjb.videoRBPmake.dao.form.formCompany;
 import hnsjb.videoRBPmake.dao.form.formMapper;
 import hnsjb.videoRBPmake.tools.mail;
 import jakarta.servlet.http.HttpServletRequest;
@@ -37,24 +38,20 @@ public class test extends baseController {
     private dialogMapper dialogMapper;
 
 
+
     @RequestMapping("/test")
     @Transactional
     public Rtn listArticles(String title, Integer pageSize, Integer pageNum) {
-
-        // 测试事务注解
-        form form = new form();
-        form.name = "测试事务";
-        formMapper.add(form);
-
-        dialog dialog = new dialog();
-        dialog.form_id = form.id;
-        dialog.msg = "测试事务";
-        dialogMapper.add(dialog);
+        // 计算 offset
+        int offset = (2 - 1) * 10;
         
-        if(true)
-            throw new RuntimeException("测试回滚");
+        HashMap<String,Object> map = new HashMap<String,Object>();
+        map.put("offset", offset);
+        map.put("limit", 10);
 
-        return rtn("测试事务");
+        List<formCompany> one = formMapper.listCompany(map);
+
+        return rtn(one);
     }
 
     @Autowired

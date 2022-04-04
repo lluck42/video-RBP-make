@@ -45,5 +45,14 @@ resultType：返回值类型
         select count(*) from form
         <include refid="query"></include>
     </select>
+    <!-- result -->
+    <resultMap type="hnsjb.videoRBPmake.dao.form.formCompany" id="listCompanyResult">
+        <association property="company" column="company_id" select="hnsjb.videoRBPmake.dao.form.companyMapper.first" />
+    </resultMap>
+    <select id="listCompany" parameterType="java.util.HashMap" resultMap="listCompanyResult">
+        select * from form
+        <include refid="query"></include>
+        order by id desc limit #{offset},#{limit} 
+    </select>
 
 </mapper>
