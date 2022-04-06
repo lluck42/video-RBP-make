@@ -1,7 +1,6 @@
 package hnsjb.videoRBPmake.tools;
 
 import java.util.Date;
-import java.util.concurrent.Future;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

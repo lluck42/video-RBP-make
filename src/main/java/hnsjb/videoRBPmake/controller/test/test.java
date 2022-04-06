@@ -15,9 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import hnsjb.videoRBPmake.controller.baseController;
-import hnsjb.videoRBPmake.dao.testMapper;
 import hnsjb.videoRBPmake.dao.admin.admin;
-import hnsjb.videoRBPmake.dao.form.dialogMapper;
 import hnsjb.videoRBPmake.dao.form.formCompany;
 import hnsjb.videoRBPmake.dao.form.formMapper;
 import hnsjb.videoRBPmake.tools.mail;
@@ -28,15 +26,10 @@ import jakarta.servlet.http.HttpServletResponse;
 @RequestMapping("/test")
 public class test extends baseController {
 
-    @Autowired
-    private testMapper testMapper;
 
     @Autowired
     private formMapper formMapper;
     
-    @Autowired
-    private dialogMapper dialogMapper;
-
 
 
     @RequestMapping("/test")
