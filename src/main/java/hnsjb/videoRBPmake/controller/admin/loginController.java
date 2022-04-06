@@ -99,6 +99,7 @@ public class loginController extends baseController {
         try{
             ServletOutputStream outputStream = response.getOutputStream();
             ImageIO.write(image, "png", outputStream);
+            outputStream.close();
         }catch(Exception e){
             throw new RuntimeException(e);
         }
