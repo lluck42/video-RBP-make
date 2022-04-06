@@ -87,6 +87,11 @@ public class loginController extends baseController {
     // 验证码
     @RequestMapping(value="verifyImage")
     public void verifyImage(HttpSession session, HttpServletResponse response) {
+        response.setDateHeader("Expires", 0);
+        response.setHeader("Cache-Control", "no-store, no-cache, must-revalidate");
+        response.addHeader("Cache-Control", "post-check=0, pre-check=0");
+        response.setHeader("Pragma", "no-cache");
+        
         response.setHeader("Content-type", "image/png");
 
         //生成验证码
@@ -99,6 +104,7 @@ public class loginController extends baseController {
         try{
             ServletOutputStream outputStream = response.getOutputStream();
             ImageIO.write(image, "png", outputStream);
+            outputStream.flush();
             outputStream.close();
         }catch(Exception e){
             throw new RuntimeException(e);
