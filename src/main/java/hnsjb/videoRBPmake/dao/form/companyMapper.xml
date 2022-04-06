@@ -19,9 +19,6 @@ resultType：返回值类型
     <!-- 列表 -->
     <sql id="query">
         <where>
-            <if test="company_id!=null and company_id!=''">
-                and company_id=#{company_id}
-            </if>
             <if test="name!=null and name!=''">
                 and name like "%"#{name}"%"
             </if>
