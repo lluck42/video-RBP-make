@@ -20,7 +20,7 @@ public interface formMapper {
     @Options(useGeneratedKeys=true, keyProperty="id")
     int add(form one);
 
-    @Update("UPDATE form SET type=#{type}, name=#{name}, description=#{description}, link_man=#{link_man}, link_mobile=#{link_mobile}, files_origin=#{files_origin} where id=#{id}")
+    @Update("UPDATE form SET type=#{type}, scale=#{scale}, name=#{name}, description=#{description}, link_man=#{link_man}, link_mobile=#{link_mobile}, files_origin=#{files_origin} where id=#{id}")
     int myUpdate(form one);
 
     @Select("SELECT * FROM form WHERE id = #{id}")
