@@ -11,7 +11,7 @@ public class upload {
     public String type;
     public String src;
     public int form_id;
-    public String form_name;
-    public String form_description;
+    // public String form_name;
+    // public String form_description;
     public Date created_at;
 }
