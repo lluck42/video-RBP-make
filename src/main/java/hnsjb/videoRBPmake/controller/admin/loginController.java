@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import hnsjb.videoRBPmake.controller.baseController;
@@ -86,6 +87,7 @@ public class loginController extends baseController {
 
     // 验证码
     @RequestMapping(value="verifyImage")
+    @ResponseBody
     public void verifyImage(HttpSession session, HttpServletResponse response) {
         response.setDateHeader("Expires", 0);
         response.setHeader("Cache-Control", "no-store, no-cache, must-revalidate");
@@ -109,8 +111,7 @@ public class loginController extends baseController {
         }catch(Exception e){
             // java.io.IOException: Broken pipe 
             // 错误的管道 异常不再记录
-            
-            // throw new RuntimeException(e);
+            throw new RuntimeException(e);
         }
     }
 
