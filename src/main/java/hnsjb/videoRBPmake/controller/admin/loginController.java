@@ -107,7 +107,10 @@ public class loginController extends baseController {
             outputStream.flush();
             outputStream.close();
         }catch(Exception e){
-            throw new RuntimeException(e);
+            // java.io.IOException: Broken pipe 
+            // 错误的管道 异常不再记录
+            
+            // throw new RuntimeException(e);
         }
     }
 
