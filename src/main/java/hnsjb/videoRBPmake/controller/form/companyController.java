@@ -159,37 +159,39 @@ public class companyController extends baseController {
     @RequestMapping("/reduceNum")
     @Transactional
     public Rtn reduceNum(HttpServletRequest request, @RequestBody form form) {
+        if(true)
+            throw new RuntimeException("该功能已关闭！");
 
-        form form2 = formMapper.first(form.id);
-        if(form2 == null)
-            throw new RuntimeException("添加记录失败");
+        // form form2 = formMapper.first(form.id);
+        // if(form2 == null)
+        //     throw new RuntimeException("添加记录失败");
 
-        switch(form.type){
-            case "拍摄":
-                if(companyMapper.shootNumReduce1(form2.company_id) == 0)
-                    throw new RuntimeException("扣除服务失败");
-            break;
-            case "剪辑":
-                if(companyMapper.clipNumReduce1(form2.company_id) == 0)
-                    throw new RuntimeException("扣除服务失败");
-            break;
-            case "专访":
-                if(companyMapper.interviewNumReduce1(form2.company_id) == 0)
-                    throw new RuntimeException("扣除服务失败");
-            break;
-        }
+        // switch(form.type){
+        //     case "拍摄":
+        //         if(companyMapper.shootNumReduce1(form2.company_id) == 0)
+        //             throw new RuntimeException("扣除服务失败");
+        //     break;
+        //     case "剪辑":
+        //         if(companyMapper.clipNumReduce1(form2.company_id) == 0)
+        //             throw new RuntimeException("扣除服务失败");
+        //     break;
+        //     case "专访":
+        //         if(companyMapper.interviewNumReduce1(form2.company_id) == 0)
+        //             throw new RuntimeException("扣除服务失败");
+        //     break;
+        // }
 
-        reduceRecord record = new reduceRecord();
-        record.company_id = form2.company_id;
-        record.company_name = form2.company_name;
-        record.form_id = form2.id;
-        record.form_name = form2.name;
+        // reduceRecord record = new reduceRecord();
+        // record.company_id = form2.company_id;
+        // record.company_name = form2.company_name;
+        // record.form_id = form2.id;
+        // record.form_name = form2.name;
 
-        record.description = form.description; // 借用 form 模型 description 字段
+        // record.description = form.description; // 借用 form 模型 description 字段
         
-        int num = reduceRecordMapper.add(record);
-        if(num == 0)
-            throw new RuntimeException("添加记录失败");
+        // int num = reduceRecordMapper.add(record);
+        // if(num == 0)
+        //     throw new RuntimeException("添加记录失败");
 
         return rtn();
     }

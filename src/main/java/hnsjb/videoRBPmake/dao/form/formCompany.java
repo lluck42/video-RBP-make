@@ -9,7 +9,9 @@ public class formCompany {
     public String admin_name;
     public int company_id;
     public String company_name;
-    public String type;
+    public String is_shoot;
+    public String is_clip;
+    public String is_interview;
     public String name;
     public String description;
     public String link_man;
