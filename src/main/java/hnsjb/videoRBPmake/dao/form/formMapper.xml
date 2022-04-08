@@ -47,6 +47,7 @@ resultType：返回值类型
     </select>
     <!-- result -->
     <resultMap type="hnsjb.videoRBPmake.dao.form.formCompany" id="listCompanyResult">
+        <!-- <result property="company_id" column="company_id" /> -->
         <association property="company" column="company_id" select="hnsjb.videoRBPmake.dao.form.companyMapper.first" />
     </resultMap>
     <select id="listCompany" parameterType="java.util.HashMap" resultMap="listCompanyResult">

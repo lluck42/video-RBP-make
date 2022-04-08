@@ -7,7 +7,7 @@ public class formCompany {
     public int id;
     public int admin_id;
     public String admin_name;
-    public int company_id;
+    // public int company_id;
     public String company_name;
     public String type;
     public String name;
