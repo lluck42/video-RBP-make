@@ -16,11 +16,11 @@ import org.apache.ibatis.annotations.Update;
 @Mapper
 public interface formMapper {
     
-    @Insert("insert into form(admin_id,admin_name,company_id,company_name,name,status) values(#{admin_id},#{admin_name},#{company_id},#{company_name},#{name},#{status})")
+    @Insert("insert into form(admin_id,admin_name,company_id,company_name,name,scale,status) values(#{admin_id},#{admin_name},#{company_id},#{company_name},#{name},#{scale},#{status})")
     @Options(useGeneratedKeys=true, keyProperty="id")
     int add(form one);
 
-    @Update("UPDATE form SET type=#{type}, scale=#{scale}, name=#{name}, description=#{description}, link_man=#{link_man}, link_mobile=#{link_mobile}, files_origin=#{files_origin} where id=#{id}")
+    @Update("UPDATE form SET type=#{type}, scale=#{scale}, name=#{name}, description=#{description}, link_man=#{link_man}, link_mobile=#{link_mobile}, demand_file=#{demand_file}, files_origin=#{files_origin} where id=#{id}")
     int myUpdate(form one);
 
     @Select("SELECT * FROM form WHERE id = #{id}")

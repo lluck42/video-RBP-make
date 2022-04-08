@@ -13,6 +13,7 @@ public class form {
     public String type;
     public String name;
     public String description;
+    public String demand_file;
     public String link_man;
     public String link_mobile;
     public String files;
