@@ -106,12 +106,10 @@ public class loginController extends baseController {
         try{
             ServletOutputStream outputStream = response.getOutputStream();
             ImageIO.write(image, "png", outputStream);
-            outputStream.flush();
-            outputStream.close();
         }catch(Exception e){
             // java.io.IOException: Broken pipe 
             // 错误的管道 异常不再记录
-            throw new RuntimeException(e);
+            // throw new RuntimeException(e);
         }
     }
 
