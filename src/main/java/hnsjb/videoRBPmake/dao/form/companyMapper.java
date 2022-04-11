@@ -15,7 +15,7 @@ import org.apache.ibatis.annotations.Update;
 @Mapper
 public interface companyMapper {
     
-    @Insert("insert into company(admin_id,name,address,shoot_num,clip_num,interview_num) values(#{admin_id},#{name},#{address},#{shoot_num},#{clip_num},#{interview_num})")
+    @Insert("insert into company(admin_id,name,address) values(#{admin_id},#{name},#{address})")
     @Options(useGeneratedKeys=true, keyProperty="id")
     int add(company one);
 
