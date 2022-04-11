@@ -8,7 +8,6 @@ public class form {
     public int admin_id;
     public String admin_name;
     public int company_id;
-    public String company_name;
     public String scale;
     public String type;
     public String name;
