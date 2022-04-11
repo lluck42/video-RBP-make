@@ -16,7 +16,7 @@ import org.apache.ibatis.annotations.Update;
 @Mapper
 public interface formMapper {
     
-    @Insert("insert into form(admin_id,admin_name,company_id,company_name,name,scale,status) values(#{admin_id},#{admin_name},#{company_id},#{company_name},#{name},#{scale},#{status})")
+    @Insert("insert into form(admin_id,admin_name,company_id,name,scale,status) values(#{admin_id},#{admin_name},#{company_id},#{name},#{scale},#{status})")
     @Options(useGeneratedKeys=true, keyProperty="id")
     int add(form one);
 
