@@ -22,6 +22,9 @@ import jakarta.servlet.ServletOutputStream;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 
 
 @RestController
@@ -153,26 +156,30 @@ public class loginController extends baseController {
 
 
     // emailLoginAdmin
-    class emailLoginAdmin extends admin{
+    static class emailLoginReq{
+        @NotNull(message="电子邮件不能为空") @Email
+        public String email;
+        @NotNull(message="验证码不能为空")
         public String code;
     }
 
     // 邮件登陆
-    public Rtn emailLogin(HttpSession session, @Validated @RequestBody emailLoginAdmin emailLoginAdmin ) {
+    @RequestMapping(value="emailLogin")
+    public Rtn emailLogin(HttpSession session, @Validated @RequestBody emailLoginReq emailLoginReq ) {
 
         // 验证码
         String code = (String)session.getAttribute("code");
         session.removeAttribute("code");
 
-        String code2 = emailLoginAdmin.code;
+        String code2 = emailLoginReq.code;
         
         if(code2 == null || !code2.equals(code)){
             throw new RuntimeException("验证码不正确");
         }
         
-        admin one = adminMapper.emailLogin(emailLoginAdmin.email);
+        admin one = adminMapper.emailLogin(emailLoginReq.email);
         if(one == null)
-            throw new RuntimeException("("+emailLoginAdmin.email+") 该邮箱尚未注册！");
+            throw new RuntimeException("("+emailLoginReq.email+") 该邮箱尚未注册！");
 
         mail.sendMail(one.email, "如忘记密码，请点击登陆后修改密码：http://vidrgt.lvgs.com.cn/html/automy.html?token="+ one.token);
 
