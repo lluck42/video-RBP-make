@@ -5,7 +5,9 @@ import java.time.LocalDateTime;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.SpringBootVersion;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.core.SpringVersion;
 import org.springframework.mail.javamail.JavaMailSender;
 
 import hnsjb.videoRBPmake.tools.mail;
@@ -56,6 +58,15 @@ class VideoRbpMakeApplicationTests {
 
     System.out.println(now);
     System.out.println(dir);
+
+    String version = SpringVersion.getVersion();
+
+    String version1 = SpringBootVersion.getVersion();
+
+    System.out.println(version);
+
+    System.out.println(version1);
+
 
 	}
 }
