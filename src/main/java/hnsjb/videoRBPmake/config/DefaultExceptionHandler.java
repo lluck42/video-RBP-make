@@ -26,7 +26,7 @@ public class DefaultExceptionHandler {
         
         String msg = "";
         for (FieldError fieldError : bindingResult.getFieldErrors()) {
-            msg += fieldError.getField() + fieldError.getDefaultMessage() + "；";
+            msg += "（" + fieldError.getRejectedValue() + "）" + fieldError.getDefaultMessage() + "；";
         }
 
         HashMap<String,Object> m = new HashMap<String,Object>();

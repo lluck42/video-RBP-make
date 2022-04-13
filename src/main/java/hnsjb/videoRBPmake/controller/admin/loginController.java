@@ -7,6 +7,7 @@ import javax.imageio.ImageIO;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.DigestUtils;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import hnsjb.videoRBPmake.controller.baseController;
 import hnsjb.videoRBPmake.dao.admin.admin;
 import hnsjb.videoRBPmake.dao.admin.adminMapper;
+import hnsjb.videoRBPmake.tools.mail;
 import hnsjb.videoRBPmake.tools.verifyCode;
 import jakarta.servlet.ServletOutputStream;
 import jakarta.servlet.http.HttpServletRequest;
@@ -27,6 +29,9 @@ import jakarta.servlet.http.HttpSession;
 public class loginController extends baseController {
     @Autowired
     private adminMapper adminMapper;
+    
+    @Autowired
+    mail mail;
 
     @RequestMapping(value="login")
     public Rtn login2(HttpSession session, @RequestBody(required = false) Map<String,Object> req) {
@@ -111,6 +116,67 @@ public class loginController extends baseController {
             // 错误的管道 异常不再记录
             // throw new RuntimeException(e);
         }
+    }
+
+
+    // 注册
+    @RequestMapping(value="register")
+    public Rtn register(@Validated @RequestBody admin admin) {
+
+        admin one = new admin();
+        one.name = admin.name;
+        one.mobile = admin.mobile;
+        one.email = admin.email;
+
+        admin exists = adminMapper.addUnique(one);
+        if(exists != null){
+            if(exists.name.equals(one.name))
+                throw new RuntimeException("（"+one.name+"）该名字已被注册");
+            if(exists.mobile.equals(one.mobile))
+                throw new RuntimeException("（"+one.mobile+"）该手机号码已被注册");
+            if(exists.email.equals(one.email))
+                throw new RuntimeException("（"+one.email+"）该邮箱已被注册");
+        }
+
+        one.role = "CU";
+        one.password = DigestUtils.md5DigestAsHex("1234".getBytes());
+
+        String str =  "register-" + System.currentTimeMillis();
+        one.token = DigestUtils.md5DigestAsHex(str.getBytes());
+
+        int sum = adminMapper.add(one);
+        if(sum == 0)
+            throw new RuntimeException("注册失败！");
+        
+        return rtn();
+    }
+
+
+    // emailLoginAdmin
+    class emailLoginAdmin extends admin{
+        public String code;
+    }
+
+    // 邮件登陆
+    public Rtn emailLogin(HttpSession session, @Validated @RequestBody emailLoginAdmin emailLoginAdmin ) {
+
+        // 验证码
+        String code = (String)session.getAttribute("code");
+        session.removeAttribute("code");
+
+        String code2 = emailLoginAdmin.code;
+        
+        if(code2 == null || !code2.equals(code)){
+            throw new RuntimeException("验证码不正确");
+        }
+        
+        admin one = adminMapper.emailLogin(emailLoginAdmin.email);
+        if(one == null)
+            throw new RuntimeException("("+emailLoginAdmin.email+") 该邮箱尚未注册！");
+
+        mail.sendMail(one.email, "如忘记密码，请点击登陆后修改密码：http://vidrgt.lvgs.com.cn/html/automy.html?token="+ one.token);
+
+        return rtn();
     }
 
 }

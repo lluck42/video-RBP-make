@@ -15,6 +15,7 @@ public class form {
     public String demand_file;
     public String link_man;
     public String link_mobile;
+    public String link_email;
     public String files;
     public String files_origin;
     public String status;
