@@ -113,7 +113,7 @@ public class companyController extends baseController {
     // 用于 cp 查看和自己相关的 company
     @RequestMapping("/reduceNum")
     @Transactional
-    public Rtn reduceNum(HttpServletRequest request, @RequestBody form form) {
+    public void reduceNum(HttpServletRequest request, @RequestBody form form) {
         if(true)
             throw new RuntimeException("该功能已关闭！");
 
@@ -148,7 +148,7 @@ public class companyController extends baseController {
         // if(num == 0)
         //     throw new RuntimeException("添加记录失败");
 
-        return rtn();
+        // return rtn();
     }
 
 }
