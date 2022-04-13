@@ -14,8 +14,6 @@ import hnsjb.videoRBPmake.dao.form.company;
 import hnsjb.videoRBPmake.dao.form.companyMapper;
 import hnsjb.videoRBPmake.dao.form.form;
 import hnsjb.videoRBPmake.dao.form.formMapper;
-import hnsjb.videoRBPmake.dao.form.reduceRecord;
-import hnsjb.videoRBPmake.dao.form.reduceRecordMapper;
 import jakarta.servlet.http.HttpServletRequest;
 
 @RestController
@@ -27,9 +25,6 @@ public class companyController extends baseController {
 
     @Autowired
     private formMapper formMapper;
-
-    @Autowired
-    private reduceRecordMapper reduceRecordMapper;
 
     @RequestMapping("myInfo")
     public Rtn info(HttpServletRequest request, @RequestBody company company) {
