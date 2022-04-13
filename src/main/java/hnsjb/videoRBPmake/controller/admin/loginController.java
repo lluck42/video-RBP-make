@@ -181,7 +181,7 @@ public class loginController extends baseController {
         if(one == null)
             throw new RuntimeException("("+emailLoginReq.email+") 该邮箱尚未注册！");
 
-        mail.sendMail(one.email, "如忘记密码，请点击登陆后修改密码：http://vidrgt.lvgs.com.cn/html/index.html/automy?token="+ one.token);
+        mail.sendMail(one.email, "如忘记密码，请点击登陆后修改密码：http://vidrgt.lvgs.com.cn/html/index.html/#/automy?token="+ one.token);
 
         return rtn();
     }
