@@ -75,24 +75,6 @@ public class loginController extends baseController {
         return rtn(one);
     }
 
-    // 刷新token凭证
-    @RequestMapping(value="logout")
-    public Rtn logout(HttpServletRequest request) {
-
-        admin one = (admin)request.getAttribute("info");
-
-        String str = one.id + "-" + System.currentTimeMillis();
-
-        one.token = DigestUtils.md5DigestAsHex(str.getBytes());
-
-        int sum = adminMapper.setToken(one);
-        if(sum == 0)
-            throw new RuntimeException("更新token失败");
-        // System.out.println(str);
-        return rtn();
-    }
-
-
     // 验证码
     @RequestMapping(value="verifyImage")
     @ResponseBody
