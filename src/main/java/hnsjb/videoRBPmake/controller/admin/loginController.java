@@ -103,15 +103,26 @@ public class loginController extends baseController {
         }
     }
 
+    // registerReq
+    static class registerReq {
+        @NotNull(message="用户名不能为空")
+        public String name;
+        @NotNull(message="手机号码不能为空") @Pattern(regexp="^[0-9]{11}$", message="不是一个合法的手机号码")
+        public String mobile;
+        @NotNull(message="电子邮件不能为空") @Pattern(regexp="^[a-z0-9A-Z]+@chinaunicom\\.cn$", message="请使用chinaunicom.cn邮箱")
+        public String email;
+        @NotNull(message="密码不能为空")
+        public String password;
+    }
 
     // 注册
     @RequestMapping(value="register")
-    public Rtn register(@Validated @RequestBody admin admin) {
+    public Rtn register(@Validated @RequestBody registerReq registerReq) {
 
         admin one = new admin();
-        one.name = admin.name;
-        one.mobile = admin.mobile;
-        one.email = admin.email;
+        one.name = registerReq.name;
+        one.mobile = registerReq.mobile;
+        one.email = registerReq.email;
 
         admin exists = adminMapper.addUnique(one);
         if(exists != null){
@@ -124,9 +135,9 @@ public class loginController extends baseController {
         }
 
         one.role = "CU";
-        one.password = DigestUtils.md5DigestAsHex("1234".getBytes());
+        one.password = DigestUtils.md5DigestAsHex(registerReq.password.getBytes());
 
-        String str =  "register-" + System.currentTimeMillis();
+        String str =  one.email + System.currentTimeMillis();
         one.token = DigestUtils.md5DigestAsHex(str.getBytes());
 
         int sum = adminMapper.add(one);
@@ -137,7 +148,7 @@ public class loginController extends baseController {
     }
 
 
-    // emailLoginAdmin
+    // emailLoginReq
     static class emailLoginReq{
         @NotNull(message="电子邮件不能为空") @Email
         public String email;
