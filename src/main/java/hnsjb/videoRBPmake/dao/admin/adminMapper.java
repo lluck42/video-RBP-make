@@ -40,6 +40,9 @@ public interface adminMapper {
     @Select("SELECT * FROM admin WHERE email = #{email} limit 1")
     admin emailLogin(@Param("email") String mobile);
 
+    @Select("SELECT * FROM admin WHERE wx_unionid = #{wx_unionid} limit 1")
+    admin wxLogin(@Param("wx_unionid") String wx_unionid);
+
     @Select("SELECT * FROM admin WHERE token = #{token} limit 1")
     admin info(@Param("token") String token);
 

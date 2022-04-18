@@ -209,4 +209,18 @@ public class loginController extends baseController {
         return rtn();
     }
 
+    // 微信登陆
+    @RequestMapping(value="wxLogin")
+    public Rtn emailLogin(@NotNull String code ) {
+    
+        String wx_unionid = wx.code2Session(code);
+
+        admin info = adminMapper.wxLogin(wx_unionid);
+        if(info == null)
+            throw new RuntimeException("登陆失败");
+
+        return rtn(info);
+    }
+    
+    
 }
