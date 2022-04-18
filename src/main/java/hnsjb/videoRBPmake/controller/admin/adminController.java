@@ -20,6 +20,7 @@ public class adminController extends baseController {
     @Autowired
     private adminMapper adminMapper;
 
+
     @RequestMapping("info")
     public Rtn info(HttpServletRequest request, String title, Integer pageSize, Integer pageNum) {
         return rtn(request.getAttribute("info"));
@@ -62,6 +63,20 @@ public class adminController extends baseController {
         if(sum == 0)
             throw new RuntimeException("更新token失败");
         // System.out.println(str);
+        return rtn();
+    }
+
+    // 微信解绑
+    @RequestMapping(value="wxUnbind")
+    public Rtn wxBind(HttpServletRequest request) {
+
+        admin one = (admin)request.getAttribute("info");
+
+        int sum = adminMapper.wxUnbind(one);
+
+        if(sum == 0)
+            throw new RuntimeException("解绑微信失败");
+        
         return rtn();
     }
 

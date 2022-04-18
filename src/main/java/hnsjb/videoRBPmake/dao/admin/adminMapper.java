@@ -48,4 +48,10 @@ public interface adminMapper {
 
     @Update("UPDATE admin SET password=#{password} where id=#{id}")
     int changePassword(admin one);
+
+    @Update("UPDATE admin SET wx_unionid=#{wx_unionid} where id=#{id}")
+    int wxBind(admin one);
+
+    @Update("UPDATE admin SET wx_unionid=null where id=#{id}")
+    int wxUnbind(admin one);
 }

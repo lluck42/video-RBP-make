@@ -14,4 +14,5 @@ public class admin {
     @JsonIgnore
     public String password;
     public String token;
+    public String wx_unionid;
 }

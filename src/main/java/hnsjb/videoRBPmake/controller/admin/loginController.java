@@ -18,8 +18,8 @@ import hnsjb.videoRBPmake.dao.admin.admin;
 import hnsjb.videoRBPmake.dao.admin.adminMapper;
 import hnsjb.videoRBPmake.tools.mail;
 import hnsjb.videoRBPmake.tools.verifyCode;
+import hnsjb.videoRBPmake.tools.wx;
 import jakarta.servlet.ServletOutputStream;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.constraints.Email;
@@ -35,6 +35,9 @@ public class loginController extends baseController {
     
     @Autowired
     mail mail;
+
+    @Autowired
+    private wx wx;
 
     @RequestMapping(value="login")
     public Rtn login2(HttpSession session, @RequestBody(required = false) Map<String,Object> req) {
@@ -176,6 +179,33 @@ public class loginController extends baseController {
 
         mail.sendMail(one.email, "如忘记密码，请点击登陆后修改密码：http://vidrgt.lvgs.com.cn/html/index.html#/automy?token="+ one.token);
 
+        return rtn();
+    }
+
+
+    static class wxBindReq{
+        String code;
+        String token;
+    }
+
+    // 绑定微信
+    @RequestMapping(value="wxBind")
+    public Rtn wxBind(@RequestBody wxBindReq wxBindReq) {
+
+        // admin info = (admin)request.getAttribute("info");
+        admin info = adminMapper.info(wxBindReq.token);
+        if(info == null)
+            throw new RuntimeException("信息错误");
+
+        if(info.wx_unionid != null)
+            throw new RuntimeException("该账号已经绑定过微信，请先解绑");
+        
+        info.wx_unionid = wx.code2Session(wxBindReq.code);
+
+        int sum = adminMapper.wxBind(info);
+        if(sum == 0)
+            throw new RuntimeException("绑定微信失败");
+        
         return rtn();
     }
 

@@ -11,6 +11,7 @@ import org.springframework.core.SpringVersion;
 import org.springframework.mail.javamail.JavaMailSender;
 
 import hnsjb.videoRBPmake.tools.mail;
+import hnsjb.videoRBPmake.tools.wx;
 
 @SpringBootTest
 class VideoRbpMakeApplicationTests {
@@ -67,6 +68,17 @@ class VideoRbpMakeApplicationTests {
 
     System.out.println(version1);
 
-
 	}
+
+  @Autowired
+	wx wx;
+
+	@Test
+	void testWx(){
+    // secret d6055000b9cc92c5f3b75505370d2c5c
+    // d6055000b9cc92c5f3b75505370d2c5c
+    // String str = wx.code2Session("0537");
+    // System.out.println(str);
+	}
+
 }
