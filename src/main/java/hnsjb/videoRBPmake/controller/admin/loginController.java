@@ -184,8 +184,8 @@ public class loginController extends baseController {
 
 
     static class wxBindReq{
-        String code;
-        String token;
+        public String code;
+        public String token;
     }
 
     // 绑定微信
@@ -193,6 +193,7 @@ public class loginController extends baseController {
     public Rtn wxBind(@RequestBody wxBindReq wxBindReq) {
 
         // admin info = (admin)request.getAttribute("info");
+        // System.out.println(wxBindReq.token);
         admin info = adminMapper.info(wxBindReq.token);
         if(info == null)
             throw new RuntimeException("信息错误");
