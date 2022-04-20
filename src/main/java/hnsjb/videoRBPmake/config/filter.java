@@ -5,6 +5,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 
@@ -19,6 +20,7 @@ import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+
 
 @Configuration
 public class filter implements Filter{
@@ -78,7 +80,8 @@ public class filter implements Filter{
             return;
         }
 
-        token = token.substring(7);
+        token = StringUtils.substring(token, 7);
+        // token = token.substring(7);
         admin one = adminMapper.info(token);
 
         if(one == null){
