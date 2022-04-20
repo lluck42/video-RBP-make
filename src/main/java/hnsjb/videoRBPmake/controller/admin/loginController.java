@@ -203,6 +203,10 @@ public class loginController extends baseController {
         
         info.wx_unionid = wx.code2Session(wxBindReq.code);
 
+        admin one = adminMapper.wxLogin(info.wx_unionid);
+        if(one != null)
+            throw new RuntimeException("该微信号已绑定！请先解绑该账号：" + one.email);
+
         int sum = adminMapper.wxBind(info);
         if(sum == 0)
             throw new RuntimeException("绑定微信失败");
