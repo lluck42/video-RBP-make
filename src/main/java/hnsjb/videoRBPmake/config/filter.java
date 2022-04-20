@@ -98,7 +98,7 @@ public class filter implements Filter{
         // permission 验证
         permission permission = permissionMapper.check(one.role, uri);
         if(permission == null){
-            response.setStatus(401);
+            response.setStatus(403);
             PrintWriter w = response.getWriter();
             w.write("{\"status\":-1,\"msg\":\"permission 没有该权限！\"}");
             w.close();
