@@ -20,7 +20,7 @@ public interface formMapper {
     @Options(useGeneratedKeys=true, keyProperty="id")
     int add(form one);
 
-    @Update("UPDATE form SET type=#{type}, scale=#{scale}, name=#{name}, description=#{description}, link_man=#{link_man}, link_mobile=#{link_mobile}, link_email=#{link_email}, demand_file=#{demand_file}, files_origin=#{files_origin} where id=#{id}")
+    @Update("UPDATE form SET type=#{type}, scale=#{scale}, name=#{name}, description=#{description}, link_man=#{link_man}, link_mobile=#{link_mobile}, link_email=#{link_email}, demand_file=#{demand_file}, wx_demand_file=#{wx_demand_file}, files_origin=#{files_origin}, wx_files_origin=#{wx_files_origin} where id=#{id}")
     int myUpdate(form one);
 
     @Select("SELECT * FROM form WHERE id = #{id}")
@@ -42,7 +42,7 @@ public interface formMapper {
     @Update("UPDATE form SET files=#{files} where id=#{id}")
     int setFiles(form one);
 
-    @Update("UPDATE form SET files_origin=#{files_origin} where id=#{id}")
+    @Update("UPDATE form SET files_origin=#{files_origin}, wx_files_origin=#{wx_files_origin} where id=#{id}")
     int setFilesOrigin(form one);
 
     List<form> list(HashMap<String,Object>map);

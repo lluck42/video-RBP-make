@@ -13,11 +13,13 @@ public class form {
     public String name;
     public String description;
     public String demand_file;
+    public String wx_demand_file;
     public String link_man;
     public String link_mobile;
     public String link_email;
     public String files;
     public String files_origin;
+    public String wx_files_origin;
     public String status;
     public String production_status;
     public String visit_date;
