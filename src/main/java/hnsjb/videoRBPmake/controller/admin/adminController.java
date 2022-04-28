@@ -74,6 +74,9 @@ public class adminController extends baseController {
 
         int sum = adminMapper.wxUnbind(one);
 
+        if(one.wx_unionid == null)
+            throw new RuntimeException("该账号未绑定微信");
+
         if(sum == 0)
             throw new RuntimeException("解绑微信失败");
         
