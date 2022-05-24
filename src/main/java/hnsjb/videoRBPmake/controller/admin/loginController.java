@@ -49,10 +49,6 @@ public class loginController extends baseController {
 
         String code2 = (String)req.get("code");
 
-        if(code2 == null || !code2.equals(code)){
-            throw new RuntimeException("验证码不正确");
-        }
-        
         // type name mobile 二选一
         String type = (String)req.get("type");
         // name
@@ -61,12 +57,21 @@ public class loginController extends baseController {
         String password = (String)req.get("password");
         // md5
         password = DigestUtils.md5DigestAsHex(password.getBytes());
+        
+        // 微信登陆不支持 cookie，暂时关闭图形验证码
+        if(!type.equals("wxMobile")){
+            if(code2 == null || !code2.equals(code)){
+                throw new RuntimeException("验证码不正确");
+            }
+        }
 
         // System.out.println(password);
         admin one;
         if(type.equals("name")){
             one = adminMapper.nameLogin(name, password);
         }else if(type.equals("mobile")){
+            one = adminMapper.mobileLogin(name, password);
+        }else if(type.equals("wxMobile")){
             one = adminMapper.mobileLogin(name, password);
         }else{
             throw new RuntimeException("登陆参数错误：type！");
